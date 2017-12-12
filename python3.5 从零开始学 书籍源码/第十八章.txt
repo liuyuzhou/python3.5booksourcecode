@@ -1,0 +1,571 @@
+18.1  数据持久化
+表创建语句和表结构：
+CREATE TABLE 'douban_comment' (
+  'Id' int(11) NOT NULL AUTO_INCREMENT,
+  'movieRank' varchar(20) DEFAULT NULL,
+  'movieName' varchar(50) DEFAULT NULL,
+  'movieForName' varchar(50) DEFAULT NULL,
+  'movieAlias' varchar(100) DEFAULT NULL,
+  'directorName' varchar(50) DEFAULT NULL,
+  'showYear' varchar(50) DEFAULT NULL,
+  'makeCounty' varchar(100) DEFAULT NULL,
+  'movieType' varchar(100) DEFAULT NULL,
+  'movieScore' varchar(10) DEFAULT NULL,
+  'scoreNum' varchar(20) DEFAULT NULL,
+  'shortFilm' varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=725 DEFAULT CHARSET=utf8;
+
+
+
+def insert_into_mysql(self):
+          db = pymysql.connect("localhost", "root", "root", "test")
+          # 使用 cursor() 方法创建一个游标对象 cursor
+          cursor = db.cursor()
+          insert_str = "insert into douban_comment(movieRank,movieName," \
+                       "movieForName,movieAlias,directorName,showYear," \
+                       "makeCounty,movieType,movieScore,scoreNum,shortFilm) " \
+                       " values('%s','%s','%s','%s','%s','%s','%s','%s'," \
+                       "'%s','%s','%s')"
+          try:
+              for movie in self.movie_list:
+                  insert_sql = insert_str % (movie[0],movie[1],movie[2],movie[3],
+                                             movie[4],movie[5],movie[6],movie[7],
+                                             movie[8],movie[9],movie[10])
+                  # update_record(insert_sql)
+                  cursor.execute(insert_sql)
+          except Exception as e:
+              print(e)
+
+			  
+			  
+#!/usr/bin/env python3
+# -*- coding:UTF-8 -*-
+
+from urllib import request
+from common.mysql_client import *
+import re
+
+class MovieTop(object):
+      def __init__(self):
+         self.start = 0
+         self.param= '&filter='
+         self.headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64)'}
+         self.movie_list = []
+         self.file_path = 'D:\op250.txt'
+
+      def get_page(self):
+          try:
+             url = 'https://movie.douban.com/top250?start=' + str(self.start)
+             # url = 'https://movie.douban.com/top250?start=' + str(self.start) + self.param
+             req = request.Request(url, headers = self.headers)
+             response = request.urlopen(req)
+             page = response.read().decode('utf-8')
+             page_num = (self.start + 25)//25
+             print('正在抓取第' + str(page_num) + '页数据...' )
+             self.start += 25
+             return page
+          except request.URLError as e:
+             if hasattr(e, 'reason'):
+                 print('抓取失败，失败原因：', e.reason)
+
+      def get_movie_info(self):
+          pattern = re.compile(u'<div.*?class="item">.*?'
+                              + u'<div.*?class="pic">.*?'
+                              + u'<em.*?class="">(.*?)</em>.*?'
+                              + u'<div.*?class="info">.*?'
+                              + u'<span.*?class="title">(.*?)'
+                              + u'</span>.*?<span.*?class="title">(.*?)</span>.*?'
+                              + u'<span.*?class="other">(.*?)</span>.*?</a>.*?'
+                              + u'<div.*?class="bd">.*?<p.*?class="">.*?'
+                              + u'导演: (.*?)&nbsp;&nbsp;&nbsp;.*?<br>'
+                              + u'(.*?)&nbsp;/&nbsp;(.*?)&nbsp;/&nbsp;'
+                              + u'(.*?)</p>.*?<div.*?class="star">.*?'
+                              + u'<span.*?'
+                              + u'class="rating_num".*?property="v:average">'
+                              + u'(.*?)</span>.*?'
+                              + u'.*?<span>(.*?)人评价</span>.*?'
+                              + u'<p.*?class="quote">.*?'
+                              + u'<span.*?class="inq">(.*?)'
+                              + u'</span>.*?</p>', re.S)
+
+          while self.start <= 225:
+              page = self.get_page()
+              movies = re.findall(pattern, page)
+              for movie in movies:
+                  self.movie_list.append([movie[0], movie[1],
+                                          movie[2].lstrip('&nbsp;/&nbsp;'),
+                                          movie[3].lstrip('&nbsp;/&nbsp;'),
+                                          movie[4],
+                                          movie[5].lstrip(),
+                                          movie[6],
+                                          movie[7].rstrip(),
+                                          movie[8],
+                                          movie[9],
+                                          movie[10]])
+
+
+      def insert_into_mysql(self):
+          db = pymysql.connect("localhost", "root", "root", "test")
+          # 使用 cursor() 方法创建一个游标对象 cursor
+          cursor = db.cursor()
+          insert_str = "insert into douban_comment(movieRank,movieName," \
+                       "movieForName,movieAlias,directorName,showYear," \
+                       "makeCounty,movieType,movieScore,scoreNum,shortFilm) " \
+                       " values('%s','%s','%s','%s','%s','%s','%s','%s'," \
+                       "'%s','%s','%s')"
+          try:
+              for movie in self.movie_list:
+                  insert_sql = insert_str % (movie[0],movie[1],movie[2],movie[3],
+                                             movie[4],movie[5],movie[6],movie[7],
+                                             movie[8],movie[9],movie[10])
+                  # update_record(insert_sql)
+                  cursor.execute(insert_sql)
+          except Exception as e:
+              print(e)
+
+      def main(self):
+         print('开始从豆瓣电影抓取数据........')
+         self.get_movie_info()
+         self.insert_into_mysql()
+         print('数据抓取完毕...')
+
+dou_ban_spider = MovieTop()
+dou_ban_spider.main()
+
+
+
+
+18.2.1  数据库操作模块化
+文件db.ini配置：
+[MySQL]
+host=localhost
+user=root
+password=root
+port=3306
+schema=test
+charset=UTF8
+
+
+#!/usr/bin/env python3
+# -*- coding:UTF-8 -*-
+#
+# 定义必须的名称元组
+
+import collections
+
+
+# 用于MySQL 的服务信息
+MySQL = collections.namedtuple('MySQL', ['host', 'user', 'password', 'port', 'charset', 'schema'])
+
+
+#!/usr/bin/env python3
+# -*- coding:UTF-8 -*-
+#
+# 读取配置文件
+
+from common.named_tuples import MySQL
+
+import configparser
+
+
+class ConfigReader:
+    #path为配置文件的完整路径，由调用者传入
+    def __init__(self, path):
+        if path is None or len(path) < 1:
+            raise ValueError('The config ini file path required.')
+        else:
+            self.conf = configparser.ConfigParser()
+            self.conf.read(path)
+
+
+    # 取得MySQL服务连接信息，返回MySQL(host,user,password,port,charset,schema)
+    def get_mysql_info(self):
+        host = self.conf.get('MySQL', 'host')
+        user = self.conf.get('MySQL', 'user')
+        pswd = self.conf.get('MySQL', 'password')
+        port = self.conf.get('MySQL', 'port')
+        charset = self.conf.get('MySQL', 'charset')
+        schema = self.conf.get('MySQL', 'schema')
+
+        return MySQL(host, user, pswd, int(port), charset, schema)
+
+		
+		
+#!/usr/bin/env python3
+# -*- coding:UTF-8 -*-
+#
+#  MySQL 操作函数集
+
+from common.conf_utils import ConfigReader
+
+import pymysql
+import datetime
+
+
+# MySQL 获取数据库连接
+def connect_pool():
+
+    cr = ConfigReader('配置文件绝对路径/db.ini')
+    conf = cr.get_mysql_info()
+
+    return pymysql.connections.Connection(host=conf.host,
+                                          port=conf.port,
+                                          user=conf.user,
+                                          password=conf.password,
+                                          database=conf.schema,
+                                          charset=conf.charset)
+
+
+# MySQL 统一数据查询方法
+def query_table(sql):
+    print('Mysql client query start...')
+    start = datetime.datetime.now()
+    print(sql)
+
+    result = []
+    try:
+        conn = connect_pool()
+        cur = conn.cursor()
+        cur.execute(sql)
+        for row in cur.fetchall():
+            result.append([cell for cell in row])
+    except Exception as e:
+        print('Query from MySQL table failed. Case: %s \n' % e)
+    finally:
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
+
+    records = len(result)
+
+    end = datetime.datetime.now()
+    print('Mysql client query completed in %s seconds. Records found: %s\n'
+          % ((end - start).seconds, records))
+
+    return result
+
+
+# MySQL 统一数据更新方法
+def update_record(sql):
+    result = []
+    try:
+        conn = connect_pool()
+        cur = conn.cursor()
+        cur.execute(sql)
+    except Exception as e:
+        print('update MySQL table failed.Case:%s \n' % e)
+    finally:
+        conn.commit()
+        if cur:
+            cur.close()
+        if conn:
+            conn.close()
+
+    return
+
+	
+	
+	
+18.2.2  文件生成模块化
+#!/usr/bin/env python3
+# -*- coding:UTF-8 -*-
+# CSV文件操作工具
+
+import csv
+
+
+# 将数据写入CSV文件
+def write_csv_file(path, head, data):
+    try:
+        with open(path, 'w', newline='') as csv_file:
+            writer = csv.writer(csv_file, dialect='excel')
+            if head is not None:
+                writer.writerow(head)
+            for row in data:
+                writer.writerow(row)
+            print("Write a CSV file to path %s Successful." % path)
+    except Exception as e:
+        print("Write an CSV file to path: %s, Case: %s" % (path, e))
+
+		
+		
+		
+18.2.3  邮件发送模块化
+#!/usr/bin/env python3
+# -*- coding:UTF-8 -*-
+#
+# 文件压缩工具
+
+import tarfile
+import zipfile
+
+
+# 使用zip方式压缩文件，多用于Windows系统
+def zip_compress(source):
+    source = source.decode('UTF-8')
+    target = source[0:source.rindex(".")] + '.zip'
+    try:
+        with zipfile.ZipFile(target, 'w') as zip_file:
+            zip_file.write(source, 
+                           source[source.rindex('/'):], zipfile.ZIP_DEFLATED)
+            zip_file.close()
+    except IOError as e:
+        print('Compress file[%s] with zip model failed. Case: %s' % (source, e))
+        target = source
+
+    return target
+
+
+# 使用tar方式压缩文件，多用于Linux系统
+def tar_compress(source):
+    source = source.decode('UTF-8')
+    target = source[0:source.rindex('.')] + '.tar.gz'
+
+    try:
+        with tarfile.open(target, "w:gz") as tar_file:
+            tar_file.add(source, arcname=source[source.rindex("/"):])
+    except IOError as e:
+        print('Compress file[%s] with zip model failed. Case: %s' % (source, e))
+        target = source
+
+    return target
+
+
+# 文件压缩率计算
+def compress_rate(source_size, target_size):
+    return round((source_size - target_size) / float(source_size), 4)
+
+	
+#!/usr/bin/env python3
+# -*- coding:UTF-8 -*-
+#
+# 邮件服务工具, 能发送带附件的邮件
+# 邮件发送成功后，根据需要可以删除附件原件
+
+import datetime
+import os
+import smtplib
+import time
+
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email import encoders
+from email import utils
+
+
+from common.compress_utils import zip_compress, compress_rate
+
+
+# 发送邮件函数
+# to: 收件人列表
+# cc: 抄送人列表
+# subject: 邮件主题
+# content: 邮件内容
+# attachments: 邮件附件列表
+# delete: 邮件发送成功后是否删除附件原件
+def send(to, cc, subject, content, attachments, delete):
+    user = "email service address"
+    password = "xxxxxx"
+
+    # 准备邮件服务
+    server = smtplib.SMTP_SSL("smtp.163.com", 465)
+    smtplib.SMTP
+    server.login(user, password)
+
+    start = datetime.datetime.now()
+
+    content_msg = MIMEMultipart()
+    content_msg['From'] = user
+    content_msg['To'] = ';'.join(to)
+    content_msg['Cc'] = ';'.join(cc)
+    content_msg['Subject'] = subject
+    content_msg['Date'] = utils.formatdate()
+
+    content_msg.attach(MIMEText(content.encode("UTF-8"), _charset='UTF-8'))
+    content_type = 'application/octet-stream'
+    maintype, subtype = content_type.split('/', 1)
+
+    # 附件准备
+    compress_files = []
+    if len(attachments) > 0:
+        for path in attachments:
+            path = compress_attachment(path)
+            """
+                如果有压缩文件，就添加到删除列表中
+            """
+            if path.__contains__('.csv') is False:
+                compress_files.append(path)
+
+            attachment_file = open(path, 'rb')
+            file_msg = MIMEBase(maintype, subtype)
+            file_msg.set_payload(attachment_file.read())
+            attachment_file.close()
+            encoders.encode_base64(file_msg)
+
+            basename = os.path.basename(path)
+            file_msg.add_header('Content-Disposition', 'attachment', 
+                                filename=basename)
+            content_msg.attach(file_msg)
+
+    try:
+        server.sendmail(user, to+cc, content_msg.as_string())
+        end = datetime.datetime.now()
+        print("%s Email send successful in %s seconds. To users: %s" \
+              % (time.strftime('%Y-%m-%d %H:%M:%S'),
+                 (end - start).seconds, ",".join(to+cc)))
+
+        """
+            如果删除标识为True，且附件不为空，邮件发送成功后删除附件
+        """
+        try:
+            attachments.extend(compress_files)
+            if delete and len(attachments) > 0:
+                for path in attachments:
+                    os.remove(path)
+        except IOError as e:
+            print('Delete attachments were failed. Case: %s' % e)
+
+    except Exception as e:
+        raise RuntimeError("Send email[%s] failed. Case:　%s" % (subject, e))
+    finally:
+        server.quit()
+
+
+def compress_attachment(attachment):
+
+    length = os.path.getsize(attachment)
+    """
+        如果附件大于等于2MB，就压缩附件
+    """
+    if length > 4194304:
+        attachment = zip_compress(attachment)
+        print('File\'s [%s] compress rate is %s%%'
+              % (os.path.basename(attachment),
+                 compress_rate(length, os.path.getsize(attachment)) * 100))
+
+    return attachment
+
+	
+	
+	
+	
+18.3  数据分析的实现
+情景一：数据营销
+#!/usr/bin/env python3
+# -*- coding:UTF-8 -*-
+# coding=utf8
+
+from common.mysql_client import *  #引入数据库操作模块
+from common.csv_utils import *      #引入CSV文件处理模块
+
+score_range_csv = "d:/score-range.csv"
+
+
+def movie_score_range():
+    query_sql = "select movieName,showYear,makeCounty,movieType,movieScore" \
+                " from douban_comment order by movieScore desc"
+    query_result = query_table(query_sql)
+    return query_result
+
+
+def write_into_csv():
+    head = ['电影名称', '上映年份', '制作国家', '电影类别', '电影评分']
+    score_range_record = movie_score_range()
+    out_put_data = []
+    for row in score_range_record:
+        out_put_data.append(row)
+
+    write_csv_file(score_range_csv, head, out_put_data)
+
+
+def main():
+    write_into_csv()
+
+if __name__ == "__main__":
+    main()
+
+	
+#!/usr/bin/env python3
+# -*- coding:UTF-8 -*-
+# coding=utf8
+
+from common.mysql_client import *
+from common.csv_utils import *
+from common.email_server import *  #引入邮件服务模块
+
+score_range_csv = "d:/score-range.csv"
+
+
+def movie_score_range():
+    query_sql = "select movieName,showYear,makeCounty,movieType,movieScore" \
+                " from douban_comment order by movieScore desc"
+    query_result = query_table(query_sql)
+    return query_result
+
+
+def write_into_csv():
+    head = ['电影名称', '上映年份', '制作国家', '电影类别', '电影评分']
+    score_range_record = movie_score_range()
+    out_put_data = []
+    for row in score_range_record:
+        out_put_data.append(row)
+
+    write_csv_file(score_range_csv, head, out_put_data)
+
+
+def main():
+    write_into_csv()
+
+    to = ['email@aliyun.com']
+    cc = ['email@aliyun.com']
+    subject = "评分排行榜"
+    content = "评分排行榜数据"
+    send(to, cc, subject, content, [score_range_csv], True)
+
+if __name__ == "__main__":
+    main()
+
+	
+	
+情景二：获取区域性数据
+#!/usr/bin/env python3
+# -*- coding:UTF-8 -*-
+# coding=utf8
+
+from common.mysql_client import *
+from common.csv_utils import *
+from common.email_server import *
+
+top10_make_county_csv = "d:/top10-make-county.csv"
+
+
+def make_county_top10():
+    query_sql = "select makeCounty,count(1) from douban_comment " \
+                "group by makeCounty order by count(1) desc limit 10"
+    query_result = query_table(query_sql)
+    return query_result
+
+def write_into_csv():
+    head = ['制作国家', '制作电影数']
+    score_range_record = make_county_top10()
+    out_put_data = []
+    for row in score_range_record:
+        out_put_data.append(row)
+
+    write_csv_file(top10_make_county_csv, head, out_put_data)
+
+
+def main():
+    write_into_csv()
+
+    to = ['yuzhouliu@aliyun.com']
+    cc = ['yuzhouliu@aliyun.com']
+    subject = "make county top 10"
+    content = "make county top 10 data"
+    send(to, cc, subject, content, [top10_make_county_csv], True)
+
+if __name__ == "__main__":
+    main()

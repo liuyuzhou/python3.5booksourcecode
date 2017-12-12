@@ -1,0 +1,764 @@
+7.1  调用函数
+>>> print('hello world')
+hello world
+>>> type('hello')
+<class 'str'>
+>>> int(12.1)
+12
+
+
+>>> help(abs)
+Help on built-in function abs in module builtins:
+abs(x, /)
+    Return the absolute value of the argument.
+
+	
+>>> abs(20)
+20
+>>> abs(-20)
+20
+>>> abs(3.14)
+3.14
+>>> abs(-3.14)
+3.14
+
+
+>>> abs(5,6)
+Traceback (most recent call last):
+  File "<pyshell#171>", line 1, in <module>
+    abs(5,6)
+TypeError: abs() takes exactly one argument (2 given)
+
+
+>>> abs('hello')
+Traceback (most recent call last):
+  File "<pyshell#172>", line 1, in <module>
+    abs('hello')
+TypeError: bad operand type for abs(): 'str'
+
+
+>>> fun=abs  # 变量fun指向abs函数
+>>> fun(-5)  # 所以可以通过fun调用abs函数
+5
+>>> fun(-3.14)  # 所以可以通过fun调用abs函数
+3.14
+>>> fun(3.14)  # 所以可以通过fun调用abs函数
+3.14
+
+
+
+
+7.2  定义函数
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def hello():
+    print('hello,world')
+
+hello()
+
+执行结果：
+Hello,world!
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def printmore():
+    print('该函数可以输出多条语句，我是第一条。')
+    print('我是第二条')
+    print('我是第三条')
+
+printmore()  #调用函数
+
+执行结果：
+该函数可以输出多条语句，我是第一条。
+我是第二条
+我是第三条
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def mixoperation():
+    a=10
+    b=20
+    print(a)
+    print(b)
+    print(a+b)
+    print('a+b的和等于:',a+b)
+
+mixoperation()   #调用函数
+
+执行结果：
+10
+20
+30
+a+b的和等于: 30
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def donothing():
+	    pass
+
+donothing()
+
+
+
+
+7.3.1  必须参数
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def paramone(str):
+	    print('the param is:',str)
+	    print('我是一个传入参数，我的值是：',str)
+
+paramone('hello,world')
+
+执行结果：
+the param is: hello,world
+我是一个传入参数，我的值是： hello,world
+
+paramone()   #不输入参数
+执行结果：
+Traceback (most recent call last):
+  File "<pyshell#208>", line 1, in <module>
+    paramone()
+TypeError: paramone() missing 1 required positional argument: 'str'
+
+paramone('hello','world')   #输入超过一个参数
+执行结果：
+Traceback (most recent call last):
+  File "<pyshell#209>", line 1, in <module>
+    paramone('hello','world')
+TypeError: paramone() takes 1 positional argument but 2 were given
+
+
+
+
+7.3.2  关键字参数
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def personinfo(age,name):
+    print('年龄：',age)
+    print('名称：',name)
+    return
+
+print('-------按参数顺序传入参数-------')
+personinfo(21,'小萌')
+print('-------不按参数顺序传入参数，指定参数名-------')
+personinfo(name='小萌',age=21)
+print('-------按参数顺序传入参数，并指定参数名-------')
+personinfo(age=21,name='小萌')
+
+执行结果：
+-------按参数顺序传入参数-------
+年龄： 21
+名称： 小萌
+-------不按参数顺序传入参数，指定参数名-------
+年龄： 21
+名称： 小萌
+-------按参数顺序传入参数，并指定参数名-------
+年龄： 21
+名称： 小萌
+
+
+
+
+7.3.3  默认参数
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def defaultparam(name,age=23):
+    print('hi，我叫：',name)
+    print('我今年：',age)
+    return
+
+defaultparam('小萌')
+
+执行结果：
+hi，我叫： 小萌
+我今年： 23
+
+defaultparam('小萌',21)  #函数默认age=23
+
+执行结果：
+hi，我叫： 小萌
+我今年： 21
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def defaultparam(age=23,name):
+	   print('hi，我叫：',name)
+	   print('我今年：',age)
+    return
+
+defaultparam(age=21,name='小萌')
+
+执行结果：
+SyntaxError: non-default argument follows default argument
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def defaultparam1(age=23,name,addr='shanghai'): 
+	   print('hi，我叫：',name)
+	   print('我今年：',age)
+	   print('我现在在:',addr)
+	   return
+
+def defaultparam2(age=23,addr='shanghai',name): 
+	   print('hi，我叫：',name)
+	   print('我今年：',age)
+	   print('我现在在:',addr)
+	   return
+
+defaultparam1(age=23, '小萌',addr='shanghai')
+defaultparam2(age=23,addr='shanghai', '小萌')
+
+执行结果（报错了）：
+SyntaxError: non-default argument follows default argument
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def defaultparam(name,age=23,addr='shanghai'):
+    print('hi，我叫：',name)
+    print('我今年：',age)
+    print('我现在在:',addr)
+    return
+
+print('-------传入必须参数-------')
+defaultparam('小萌')
+print('-------传入必须参数，更改第一个默认参数值-------')
+defaultparam('小萌',21)
+print('-------传入必须参数，默认参数值都更改-------')
+defaultparam('小萌',21,'beijing')
+print('-------传入必须参数，指定默认参数名并更改参数值-------')
+defaultparam('小萌',addr='beijing')
+print('-------传入必须参数，指定参数名并更改值-------')
+defaultparam('小萌',addr='beijing',age=23)
+print('-------第一个默认参数不带参数名，第二个带-------')
+defaultparam('小萌',21,addr='beijing')
+print('-------两个默认参数都带参数名-------')
+defaultparam('小萌',age=23,addr='beijing')
+print('-------第一个默认参数带参数名，第二个不带，报错-------')
+defaultparam('小萌',age=23,'beijing')
+
+执行结果：
+-------传入必须参数-------
+hi，我叫： 小萌
+我今年： 23
+我现在在: shanghai
+-------传入必须参数，更改第一个默认参数值-------
+hi，我叫： 小萌
+我今年： 21
+我现在在: shanghai
+-------传入必须参数，默认参数值都更改-------
+hi，我叫： 小萌
+我今年： 21
+我现在在: beijing
+-------传入必须参数，指定默认参数名并更改参数值-------
+hi，我叫： 小萌
+我今年： 23
+我现在在: beijing
+-------传入必须参数，指定参数名并更改值-------
+hi，我叫： 小萌
+我今年： 23
+我现在在: beijing
+-------第一个默认参数不带参数名，第二个带-------
+hi，我叫： 小萌
+我今年： 21
+我现在在: beijing
+-------两个默认参数都带参数名-------
+hi，我叫： 小萌
+我今年： 23
+我现在在: beijing
+-------第一个默认参数带参数名，第二个不带，报错-------
+SyntaxError: positional argument follows keyword argument
+
+
+
+
+7.3.4  可变参数
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def personinfo(arg,*vartuple):
+    print(arg)
+    for var in vartuple:
+        print('我属于不定长参数部分:',var)
+    return
+
+print('------------不带可变参数------------------')
+personinfo('小萌')
+print('------------带两个可变参数------------------')
+personinfo('小萌',21,'beijing')
+print('------------带5个可变参数----------------')
+personinfo('小萌',21,'beijing',123,'shanghai','happy')
+
+执行结果：
+------------不带可变参数------------------
+小萌
+------------带两个可变参数------------------
+小萌
+我属于不定长参数部分: 21
+我属于不定长参数部分: beijing
+------------带5个可变参数----------------
+小萌
+我属于不定长参数部分: 21
+我属于不定长参数部分: beijing
+我属于不定长参数部分: 123
+我属于不定长参数部分: shanghai
+我属于不定长参数部分: happy
+
+
+
+
+7.3.5  组合参数
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def exp(p1, p2, df=0, *vart, **kw):
+    print('p1 =', p1, 'p2=', p2, 'df=', df, 'vart=', vart, 'kw =', kw)
+
+exp(1,2)
+exp(1,2,c=3)
+exp(1,2,3,'a','b')
+exp(1,2,3,'abc',x=9)
+
+执行结果：
+p1 = 1 p2= 2 df= 0 vart= () kw = {}
+p1 = 1 p2= 2 df= 0 vart= () kw = {'c': 3}
+p1 = 1 p2= 2 df= 3 vart= ('a', 'b') kw = {}
+p1 = 1 p2= 2 df= 3 vart= ('abc',) kw = {'x': 9}
+
+
+
+
+7.5  形参和实参
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def personinfo(age,name):
+    print('年龄：',age)
+    print('名称：',name)
+    return
+
+personinfo(21,'小萌'*2)
+
+执行结果：
+年龄： 21
+名称： 小萌小萌
+
+
+
+
+7.6.1  局部变量
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def func():
+x = 100
+print x
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def func():
+    x=100
+    print ('变量x：%s' % x)
+print('函数体外访问变量x：%s' % x)
+func()
+
+执行结果：
+Traceback (most recent call last):
+  File "D:/python/workspace/functiondef.py", line 7, in <module>
+    print('函数体外访问变量x：%s' % (x))
+NameError: name 'x' is not defined
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def func(x):
+    print ('局部变量x为',x)
+func(10)
+
+执行结果：
+局部变量x为： 10
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+x = 50
+def func():
+    print('x等于', x)
+
+执行结果：
+x等于50
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+x = 50
+def func(x):
+    print('x等于', x)
+    x = 2
+    print('局部变量x变为', x)
+func(x)
+print('x一直是', x)
+
+执行结果：
+x等于 50
+局部变量x变为 2
+x一直是 50
+
+
+
+
+7.6.2  全局变量
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+total = 0; # 这是一个全局变量
+def sum( arg1, arg2 ):
+    total = arg1 + arg2; # total在这里是局部变量.
+    print ("函数内是局部变量 : ", total)
+    return total
+
+def totalprint():
+    print('total的值是',total)
+    return total
+
+print('函数求和结果:',sum( 10, 20 ))
+totalprint()
+print ("函数外是全局变量 : ", total)
+
+执行结果：
+函数内是局部变量 :  30
+函数求和结果: 30
+total的值是 0
+函数外是全局变量 :  0
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+num = 100
+def func():
+    num = 200
+    print('函数体中num的值为：',num)
+
+func()
+print('函数外num的值为：',num)
+
+执行结果：
+函数体中num的值为： 200
+函数外num的值为： 100
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+num = 100
+print('函数调用前num的值为：',num)
+def func():
+    global num
+    num = 200
+    print('函数体中num的值为：',num)
+
+func()
+print('函数调用结束后num的值为：',num)
+
+执行结果：
+函数调用前num的值为： 100
+函数体中num的值为： 200
+函数调用结束后num的值为： 200
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+num = 100
+print('函数调用前num的值为：',num)
+def func():
+    global num
+    num = 200
+    num += 100
+    print('函数体中num的值为：',num)
+
+func()
+print('函数调用结束后num的值为：',num)
+
+执行结果：
+函数调用前num的值为： 100
+函数体中num的值为： 300
+函数调用结束后num的值为： 300
+
+
+
+
+7.7  有返回值和无返回值函数
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def noreturn():
+    print('noreturn函数不写return语句')
+
+def justreturn():
+    print('justreturn函数只写return，不返回具体内容')
+	return
+
+def returnval():
+    x=10
+    y=20
+    z=x+y
+    print('returnval函数写return语句，并返回求和的结果。')
+    return z
+
+print('函数noreturn调用结果：',noreturn())
+print('函数justreturn调用结果：',justreturn())
+print('函数returnval调用结果：',returnval())
+
+执行结果：
+noreturn函数不写return语句
+函数noreturn调用结果： None
+justreturn函数只写return，不返回具体内容
+函数justreturn调用结果： None
+returnval函数写return语句，并返回求和的结果。
+函数returnval调用结果： 30
+
+
+
+
+7.9  返回函数
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def calc_sum(*args):
+    ax = 0
+    for n in args:
+        ax = ax + n
+    return ax 
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def sum_late(*args):
+    def calc_sum():
+        ax = 0
+        for n in args:
+            ax = ax + n
+        return ax
+    return calc_sum
+
+print('调用sum_late的结果：',sum_late(1,2,3,4))
+calc_sum=sum_late(1,2,3,4)
+print('调用calc_sum的结果：',calc_sum())
+
+执行结果：
+调用sum_late的结果： <function sum_late.<locals>.calc_sum at 0x000000000077DE18>
+调用calc_sum的结果： 10
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def count():
+    fs = []
+    for i in range(1, 4):
+        def f():
+             return i*i
+        fs.append(f)
+    return fs
+
+f1, f2, f3 = count()
+
+print('f1的结果是：',f1())
+print('f2的结果是：',f2())
+print('f3的结果是：',f3())
+
+执行结果：
+f1的结果是： 9
+f2的结果是： 9
+f3的结果是： 9
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def count():
+    def f(j):
+        def g():
+            return j*j
+        return g
+    fs = []
+    for i in range(1, 4):
+        fs.append(f(i)) # f(i)立刻被执行，因此i的当前值被传入f()
+    return fs
+
+f1, f2, f3 = count()
+print('f1的结果是：',f1())
+print('f2的结果是：',f2())
+print('f3的结果是：',f3())
+
+执行结果：
+f1的结果是： 1
+f2的结果是： 4
+f3的结果是： 9
+
+
+
+
+7.10  递归函数
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def fact(n):
+    if n==1:
+        return 1
+    return n * fact(n - 1)
+执行函数：
+print('调用递归函数执行结果为：',fact(5))
+
+执行结果：
+调用递归函数执行结果为： 120
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def fact(n):
+    return fact_iter(n, 1)
+
+def fact_iter(num, product):
+    if num == 1:
+        return product
+    return fact_iter(num - 1, num * product)
+
+	
+	
+	
+7.11  匿名函数
+>>> L1=[1,2,3,4,5]
+>>> L2=[]
+>>> for i in L1:
+	         if i>3:
+		         L2.append(i)
+
+>>> print('列表中大于3的元素有：',L2)
+列表中大于3的元素有： [4, 5]
+
+
+def func(x):
+    return x>3
+f_list=filter(func,[1,2,3,4,5])
+print('列表中大于3的元素有：',[item for item in f_list])
+
+执行结果：
+列表中大于3的元素有： [4, 5]
+
+
+>>> t = lambda : True #分号前无任何参数
+>>> t()
+True
+
+
+>>> lambda x: x**3 #一个参数
+>>> lambda x,y,z:x+y+z #多个参数
+>>> lambda x,y=3: x*y #允许参数存在默认值
+
+
+>>> c = lambda x,y,z: x*y*z
+>>> c(2,3,4)
+24
+>>> c = lambda x,y=2: x+y #使用了默认值
+>>> c(10) #如果不输入，就使用默认值2
+12
+
+
+
+
+7.12  偏  函  数
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+from functools import partial
+
+def mod( n, m ):
+  return n % m
+
+mod_by_100 = partial( mod, 100 )
+
+print('自定义函数，100对7取余结果为：',mod( 100, 7 ))
+print('调用偏函数，100对7取余结果为：',mod_by_100( 7 ))
+
+执行结果：
+自定义函数，100对7取余结果为： 2
+调用偏函数，100对7取余结果为： 2
+
+
+
+
+7.13  牛刀小试——经典排序之快速排序实现
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def quicksort(L):
+  qsort(L, 0, len(L) - 1)
+
+def qsort(L, first, last):
+  if first < last:
+    split = partition(L, first, last)
+    qsort(L, first, split - 1)
+    qsort(L, split + 1, last)
+
+def partition(L, first, last):
+  # 选取列表中的第一个元素作为划分元素
+  pivot = L[first]
+  leftmark = first + 1
+  rightmark = last
+  while True:
+    while L[leftmark] <= pivot:
+     # 如果列表中存在与划分元素pivot相等的元素，让它位于left部分
+     # 以下检测用于划分元素pivot是列表中的最大元素时
+     # 防止leftmark越界
+      if leftmark == rightmark:
+        break
+      leftmark += 1
+    while L[rightmark] > pivot:
+      # 这里不需要检测，划分元素pivot是列表中的最小元素时
+      # rightmark自动停在first处
+      rightmark -= 1
+    if leftmark < rightmark:
+      # 此时，leftmark处的元素大于pivot
+      # rightmark处的元素小于等于pivot，交换两者
+      L[leftmark], L[rightmark] = L[rightmark], L[leftmark]
+    else:
+      break
+  # 交换first处的划分元素与rightmark处的元素
+  L[first], L[rightmark] = L[rightmark], L[first]
+  # 返回划分元素pivot的最终位置
+  return rightmark
+函数调用示例：
+num_list = [5, -4, 6, 3, 7, 11, 1, 2]
+print('排序之前: ' + str(num_list))
+quicksort(num_list)
+print('排序之后: ' + str(num_list))
+
+执行结果：
+排序之前: [5, -4, 6, 3, 7, 11, 1, 2]
+排序之后: [-4, 1, 2, 3, 5, 6, 7, 11]

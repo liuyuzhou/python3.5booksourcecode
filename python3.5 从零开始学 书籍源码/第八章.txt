@@ -1,0 +1,912 @@
+8.2.1  类的定义
+class MyClass(object):
+    i = 123
+    def f(self):
+        return 'hello world'
+
+
+
+		
+8.2.2  类的使用
+#! /usr/bin/python3
+# -*-coding:UTF-8-*-
+
+class MyClass(object):
+    i = 123    
+    def f(self):
+        return 'hello world'
+
+use_class = MyClass()
+print('调用类的属性：',use_class.i)
+print('调用类的方法：',use_class.f())
+
+执行结果：
+调用类的属性： 123
+调用类的方法： hello world
+
+
+
+
+8.3.1  类的构造方法
+#! /usr/bin/python3
+# -*-coding:UTF-8-*-
+
+class MyClass(object):
+    i = 123
+    def __init__(self, name):
+        self.name = name
+
+    def f(self):
+        return 'hello,'+ self.name
+
+use_class = MyClass('xiaomeng')
+print('调用类的属性：',use_class.i)
+print('调用类的方法：',use_class.f())
+
+执行结果：
+调用类的属性： 123
+调用类的方法： hello,xiaomeng
+
+use_class = MyClass()
+执行结果：
+Traceback (most recent call last):
+  File "D:/python/workspace/classdef.py", line 21, in <module>
+    use_class = MyClass()
+TypeError: __init__() missing 1 required positional argument: 'name'
+
+
+#! /usr/bin/python3
+# -*-coding:UTF-8-*-
+
+class DefaultInit(object):
+    def __init__(self):
+        print('类实例化时执行我，我是__init__方法。')
+
+    def show(self):
+        print ('我是类中定义的方法，需要通过实例化对象调用。')
+
+test = DefaultInit()
+print('类实例化结束。')
+test.show()
+
+执行结果：
+类实例化时执行我，我是__init__方法。
+类实例化结束。
+我是类中定义的方法，需要通过实例化对象调用。
+
+
+#! /usr/bin/python3
+# -*-coding:UTF-8-*-
+
+class DefaultInit(object):
+    def show(self):
+        print ('我是类中定义的方法，需要通过实例化对象调用。')
+
+test = DefaultInit()
+print('类实例化结束。')
+test.show()
+
+执行结果：
+类实例化结束。
+我是类中定义的方法，需要通过实例化对象调用。
+
+
+#! /usr/bin/python3
+# -*-coding:UTF-8-*-
+
+class DefaultInit(object):
+    def __init__(self):
+        print('我是不带参数的__init__方法。')
+
+DefaultInit()
+print('类实例化结束。')
+
+执行结果：
+我是不带参数的__init__方法。
+类实例化结束。
+
+
+#! /usr/bin/python3
+# -*-coding:UTF-8-*-
+
+class DefaultInit(object):
+    def __init__(self):
+        print('我是不带参数的__init__方法。')
+
+    def __init__(self, param):
+        print('我是带一个参数的__init__方法，参数值为：',param)
+
+DefaultInit('hello')
+print('类实例化结束。')
+
+执行结果：
+我是带一个参数的__init__方法，参数值为： hello
+类实例化结束。
+
+
+DefaultInit()
+
+执行结果：
+Traceback (most recent call last):
+  File "D:/python/workspace/classdef.py", line 59, in <module>
+    DefaultInit()
+TypeError: __init__() missing 1 required positional argument: 'param'
+
+
+DefaultInit('hello', 'world')
+
+执行结果：
+Traceback (most recent call last):
+  File "D:/python/workspace/classdef.py", line 61, in <module>
+    DefaultInit('hello', 'world')
+TypeError: __init__() takes 2 positional arguments but 3 were given
+
+
+#! /usr/bin/python3
+# -*-coding:UTF-8-*-
+
+class DefaultInit(object):
+    def __init__(self, param):
+        print('我是带一个参数的__init__方法，参数值为：',param)
+
+    def __init__(self):
+        print('我是不带参数的__init__方法。')
+
+DefaultInit()
+print('类实例化结束。')
+
+执行结果：
+我是不带参数的__init__方法。
+类实例化结束。
+
+
+DefaultInit('hello')
+
+执行结果：
+Traceback (most recent call last):
+  File "D:/python/workspace/classdef.py", line 60, in <module>
+    DefaultInit('hello')
+TypeError: __init__() takes 1 positional argument but 2 were given
+
+
+DefaultInit('hello', 'world')
+
+执行结果：
+Traceback (most recent call last):
+  File "D:/python/workspace/classdef.py", line 61, in <module>
+    DefaultInit('hello', 'world')
+TypeError: __init__() takes 2 positional arguments but 3 were given
+
+
+
+
+8.3.2  类的访问权限
+#! /usr/bin/python3
+# -*-coding:UTF-8-*-
+
+class Student(object):
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+
+    def info(self):
+        print('学生：%s；分数: %s' % (self.name, self.score))
+
+stu = Student('xiaomeng',95)
+print ('修改前分数：', stu.score)
+stu.info()
+stu.score=0
+print ('修改后分数：', stu.score)
+stu.info()
+
+执行结果：
+修改前分数：95
+学生：xiaomeng；分数: 95
+修改后分数：0
+学生：xiaomeng；分数: 0
+
+
+#! /usr/bin/python3
+# -*-coding:UTF-8-*-
+
+class Student(object):
+    def __init__(self, name, score):
+        self.__name = name
+        self.__score = score
+
+    def info(self):
+        print('学生：%s；分数: %s' % (self.__name, self.__score))
+
+stu = Student('xiaomeng',95)
+print('修改前分数：', stu.__score)
+stu.info()
+stu.__score = 0
+print('修改后分数：',stu.__score)
+stu.info()
+
+执行结果：
+Traceback (most recent call last):
+  File "D:/python/workspace/classdef.py", line 81, in <module>
+    print('修改前分数：', stu.__score)
+AttributeError: 'Student' object has no attribute '__score'
+
+
+#! /usr/bin/python3
+# -*-coding:UTF-8-*-
+
+class Student(object):
+    def __init__(self, name, score):
+        self.__name = name
+        self.__score = score
+
+    def info(self):
+        print('学生：%s；分数: %s' % (self.__name, self.__score))
+
+    def get_score(self):
+        return self.__score
+
+stu = Student('xiaomeng',95)
+print('修改前分数：', stu.get_score())
+stu.info()
+print('修改后分数：',stu.get_score())
+stu.info()
+
+执行结果：
+修改前分数： 95
+学生：xiaomeng；分数: 95
+修改后分数： 95
+学生：xiaomeng；分数: 95
+
+
+#! /usr/bin/python3
+# -*-coding:UTF-8-*-
+
+class Student(object):
+    def __init__(self, name, score):
+        self.__name = name
+        self.__score = score
+
+    def info(self):
+        print('学生：%s；分数: %s' % (self.__name, self.__score))
+
+    def get_score(self):
+        return self.__score
+
+    def set_score(self, score):
+        self.__score = score
+
+stu = Student('xiaomeng',95)
+print('修改前分数：', stu.get_score())
+stu.info()
+stu.set_score(0)
+print('修改后分数：',stu.get_score())
+stu.info()
+
+执行结果：
+修改前分数： 95
+学生：xiaomeng；分数: 95
+修改后分数： 0
+学生：xiaomeng；分数: 0
+
+
+#! /usr/bin/python3
+# -*-coding:UTF-8-*-
+
+class Student(object):
+    def __init__(self, name, score):
+        self.__name = name
+        self.__score = score
+
+    def info(self):
+        print('学生：%s；分数: %s' % (self.__name, self.__score))
+
+    def get_score(self):
+        return self.__score
+
+    if 0<=score<=100:
+            self.__score = score
+        else:
+            print('请输入0到100的数字。')
+
+stu = Student('xiaomeng',95)
+print('修改前分数：', stu.get_score())
+stu.info()
+stu.set_score(-10)
+print('修改后分数：',stu.get_score())
+stu.info()
+
+执行结果：
+修改前分数： 95
+学生：xiaomeng；分数: 95
+请输入0到100的数字。
+修改后分数： 95
+学生：xiaomeng；分数: 95
+
+
+#! /usr/bin/python3
+# -*-coding:UTF-8-*-
+
+class PrivatePublicMethod(object):
+    def __init__(self):
+        pass
+
+    def __foo(self):          # 私有方法
+        print('这是私有方法')
+
+    def foo(self):            # 公共方法
+        print('这是公共方法')
+        print('公共方法中调用私有方法')
+        self.__foo()
+        print('公共方法调用私有方法结束')
+
+
+pri_pub = PrivatePublicMethod()
+print('开始调用公共方法：')
+pri_pub.foo()
+print('开始调用私有方法：')
+pri_pub.__foo()
+
+执行结果：
+开始调用公共方法：
+这是公共方法
+公共方法中调用私有方法
+这是私有方法
+公共方法调用私有方法结束
+开始调用私有方法：
+Traceback (most recent call last):
+  File "D:/python/workspace/classdef.py", line 114, in <module>
+    pri_pub.__foo()
+AttributeError: 'PrivatePublicMethod' object has no attribute '__foo'
+
+
+
+
+8.4  继    承
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+class Animal(object):
+    def run(self):
+        print('Animal is running...')
+
+
+class Dog(Animal): 
+    pass
+
+class Cat(Animal):
+    pass
+
+dog = Dog()
+dog.run()
+
+cat = Cat()
+cat.run() 
+
+执行结果：
+Animal is running...
+Animal is running...
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+class Dog(Animal):
+    def eat(self):
+        print('Eating ...')
+
+dog = Dog()
+dog.run()
+dog.eat()
+
+执行结果：
+Animal is running...
+Eating ...
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+class Animal(object):
+    def run(self):
+        print('Animal is running...')
+
+    def __run(self):
+        print('I am a private method.')
+
+执行语句：
+dog = Dog()
+dog.__run()
+
+执行结果：
+Traceback (most recent call last):
+  File "D:/python/workspace/classextend.py", line 25, in <module>
+    dog.__run()
+AttributeError: 'Dog' object has no attribute '__run'
+
+
+class Animal(object):
+    def run(self):
+        print('Animal is running...')
+
+    def jump(self):
+        print('Animal is jumpping....')
+
+    def __run(self):
+        print('I am a private method.')
+
+dog = Dog()
+dog.run()
+dog.jump()
+
+cat = Cat()
+cat.run()
+cat.jump()
+
+执行结果：
+Animal is running...
+Animal is jumpping....
+Animal is running...
+Animal is jumpping....
+
+
+
+
+8.5  多    态
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-	
+
+class Dog(Animal):
+    def run(self):
+        print('Dog is running...')
+        
+class Cat(Animal):
+    def run(self):
+        print('Cat is running...')
+		
+执行语句：
+dog = Dog()
+print('实例化Dog类')
+dog.run()
+
+cat = Cat()
+print('实例化Cat类')
+cat.run()
+
+执行结果：
+实例化Dog类
+Dog is running...
+实例化Cat类
+Cat is running...
+
+
+a = list() # a是list类型
+b = Animal() # b是Animal类型
+c = Dog() # c是Dog类型
+print('a是否为list类型：', isinstance(a, list))
+print('b是否为Animal类型：', isinstance(b, Animal))
+print('c是否为Dog类型：', isinstance(c, Dog)) 
+
+执行结果：
+a是否为list类型： True
+b是否为Animal类型： True
+c是否为Dog类型： True
+
+print('c是否为Dog类型：', isinstance(c, Dog))
+print('c是否为Animal类型：',isinstance(c, Animal))
+
+执行结果：
+c是否为Dog类型： True
+c是否为Animal类型： True
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-	
+
+def run_two_times(animal):
+    animal.run()
+    animal.run()
+
+run_two_times(Animal())
+
+执行结果：
+Animal is running...
+Animal is running...
+
+
+run_two_times(Dog())
+
+执行结果：
+Dog is running...
+Dog is running...
+
+
+run_two_times(Cat())
+
+执行结果：
+Cat is running...
+Cat is running...
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-	
+
+class Bird(Animal):
+    def run(self):
+        print('Bird is flying the sky...')
+
+run_two_times(Bird())
+
+执行结果：
+Bird is flying the sky...
+Bird is flying the sky...
+
+
+
+
+8.6  封    装
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+class Student(object):
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+
+std = Student('xiaozhi',90)
+def info(std):
+    print('学生：%s；分数: %s' % (std.name, std.score))
+info(std)
+
+执行结果：
+学生：xiaozhi；分数: 90
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+class Student0(object):
+    def __init__(self, name, score):
+        self.name = name
+        self.score = score
+
+    def info(self):
+        print('学生：%s；分数: %s' % (self.name, self.score))
+
+stu = Student0('xiaomeng',95)
+
+执行结果：
+学生：xiaomeng；分数: 95
+
+
+
+
+8.7  多重继承
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+class Animal(object):
+    pass
+
+# 大类:
+class Mammal(Animal):
+    pass
+
+class Bird(Animal):
+    pass
+
+# 各种动物:
+class Dog(Mammal):
+    pass
+
+class Bat(Mammal):
+    pass
+
+class Parrot(Bird):
+    pass
+
+class Ostrich(Bird):
+    pass
+
+	
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+class Runnable(object):
+    def run(self):
+        print('Running...')
+
+class Flyable(object):
+    def fly(self):
+        print('Flying...')
+
+class Dog(Mammal, Runnable):
+    pass
+
+class Bat(Mammal, Flyable):
+    pass
+
+	
+	
+	
+8.8  获取对象信息
+1. 使用type()函数
+>>> type(123)
+<class 'int'>
+>>> type('abc')
+<class 'str'>
+>>> type(None)
+<class 'NoneType'>
+>>> type(abs)
+<class 'builtin_function_or_method'>
+>>> type(pri_pub)   #上一节定义的PrivatePublicMethod类
+<class '__main__.PrivatePublicMethod'>
+
+
+>>> type(123)==type(456)
+True
+>>> type(123)==int
+True
+>>> type('abc')==type('123')
+True
+>>> type('abc')==str
+True
+>>> type('abc')==type(123)
+False
+
+
+>>> import types
+>>> def func():
+...      pass
+...
+>>> type(fn)==types.FunctionType
+True
+>>> type(abs)==types.BuiltinFunctionType
+True
+>>> type(lambda x: x)==types.LambdaType
+True
+>>> type((x for x in range(10)))==types.GeneratorType
+True
+
+
+
+2. 使用isinstance()函数
+>>> animal = Animal()
+>>> dog = Dog()
+>>> isinstance(dog, Dog)
+True
+>>> isinstance(dog, Animal)
+True
+>>> isinstance(dog, object)
+True
+>>> isinstance(dog, Dog) and isinstance(dog, Animal)
+True
+>>> isinstance(animal,Dog )
+False
+>>> isinstance([1, 2, 3], (list, tuple))
+True
+>>> isinstance((1, 2, 3), (list, tuple))
+True
+
+
+
+3. 使用dir()
+>>> dir('abc')
+['__add__', '__class__', '__contains__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__getnewargs__', '__gt__', '__hash__', '__init__', '__iter__', '__le__', '__len__', '__lt__', '__mod__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__rmod__', '__rmul__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', 'capitalize', 'casefold', 'center', 'count', 'encode', 'endswith', 'expandtabs', 'find', 'format', 'format_map', 'index', 'isalnum', 'isalpha', 'isdecimal', 'isdigit', 'isidentifier', 'islower', 'isnumeric', 'isprintable', 'isspace', 'istitle', 'isupper', 'join', 'ljust', 'lower', 'lstrip', 'maketrans', 'partition', 'replace', 'rfind', 'rindex', 'rjust', 'rpartition', 'rsplit', 'rstrip', 'split', 'splitlines', 'startswith', 'strip', 'swapcase', 'title', 'translate', 'upper', 'zfill']
+
+
+
+
+8.9  类的专有方法
+1. __str__
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+class Student(object):
+    def __init__(self, name):
+        self.name = name
+
+print(Student('xiaozhi'))
+
+执行结果：
+<__main__.Student object at 0x0000000000D64198>
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+class Student(object):
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return '学生名称: %s' % self.name
+
+print(Student('xiaozhi'))
+
+执行结果：
+学生名称: xiaozhi
+
+>>> s = Student('xiaozhi')
+>>> s
+<__main__.Student object at 0x00000000030EC550>
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+class Student(object):
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return '学生名称: %s' % self.name
+    __repr__ = __str__
+
+在交互模式下执行：
+>>> s = Student('xiaozhi')
+>>> s
+学生名称: xiaozhi
+
+
+
+2. __iter__
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+class Fib(object):
+    def __init__(self):
+        self.a, self.b = 0, 1 # 初始化两个计数器a、b
+
+    def __iter__(self):
+        return self # 实例本身就是迭代对象，故返回自己
+
+    def __next__(self):
+        self.a, self.b = self.b, self.a + self.b # 计算下一个值
+        if self.a > 100000: # 退出循环的条件
+            raise StopIteration();
+        return self.a # 返回下一个值
+
+		
+		
+3. __getitem__
+>>> Fib()[3]
+Traceback (most recent call last):
+  File "<pyshell#35>", line 1, in <module>
+    Fib()[3]
+TypeError: 'Fib' object does not support indexing
+
+
+class Fib(object):
+    def __getitem__(self, n):
+        a, b = 1, 1
+        for x in range(n):
+            a, b = b, a + b
+        return a
+
+		
+>>> fib = Fib()
+>>> fib[3]
+3
+>>> fib[10]
+89
+
+
+
+4. __getattr__
+class Student(object):
+    def __init__(self, name):
+        self.name = 'xiaozhi'
+
+		
+>>> stu = Student()
+>>> print(stu.name)
+Xiaozhi
+>>> print(stu.score)
+Traceback (most recent call last):
+  File "<pyshell#50>", line 1, in <module>
+    print(stu.score)
+AttributeError: 'Student' object has no attribute 'score'
+
+
+class Student(object):
+
+    def __init__(self):
+        self.name = 'xiaozhi'
+
+    def __getattr__(self, attr):
+        if attr=='score':
+            return 95
+
+			
+>>> stu = Student()
+>>> stu.name
+xiaozhi
+>>> stu.score
+95
+
+
+
+5. __call__
+class Student(object):
+    def __init__(self, name):
+        self.name = name
+
+    def __call__(self):
+        print('名称：%s' % self.name)
+
+		
+>>> stu = Student('xiaomeng')
+>>> stu()
+名称：xiaomeng
+
+
+>>> callable(Student('xiaozhi'))
+True
+>>> callable(max)
+True
+>>> callable([1, 2, 3])
+False
+>>> callable(None)
+False
+>>> callable('a')
+False
+
+
+
+
+8.10  牛刀小试——出行建议
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+class WeatherSearch(object):
+    def __init__(self, input_daytime):
+        self.input_daytime = input_daytime
+
+    def seach_visibility(self):
+        visible_leave = 0
+        if self.input_daytime == 'daytime':
+            visible_leave = 2
+        if self.input_daytime == 'night':
+            visible_leave = 9
+        return visible_leave
+
+    def seach_temperature(self):
+        temperature = 0
+        if self.input_daytime == 'daytime':
+            temperature = 26
+        if self.input_daytime == 'night':
+            temperature = 16
+        return temperature
+
+		
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+class OutAdvice(WeatherSearch):
+    def __init__(self, input_daytime):
+        WeatherSearch.__init__(self, input_daytime)
+
+    def seach_temperature(self):
+        vehicle = ''
+        if self.input_daytime == 'daytime':
+            vehicle = 'bike'
+        if self.input_daytime == 'night':
+            vehicle = 'taxi'
+        return vehicle
+
+    def out_advice(self):
+        visible_leave = self.seach_visibility()
+        if visible_leave == 2:
+            print('The weather is good,suitable for use %s.' % self.seach_temperature())
+        elif visible_leave == 9:
+            print('The weather is bad,you should use %s.' % self.seach_temperature())
+        else:
+            print('The weather is beyond my scope,I can not give you any advice')
+
+		
+如下调用：
+check = OutAdvice('daytime')
+check.out_advice()
+
+结果：
+The weather is good,suitable for use bike.

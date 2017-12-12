@@ -1,0 +1,280 @@
+15.4.1  客户端
+# 导入socket库
+import socket
+
+# 创建一个socket
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# 获取本地主机名
+host = socket.gethostname() 
+# 设置端口号
+port = 9999
+# 连接服务，指定主机和端口
+s.connect((host, port))
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+import socket
+
+def socket_client():
+    # 创建 socket 对象
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # 获取主机名
+    host = 'www.baidu.com'
+    # 设置端口号
+    port = 80
+    # 连接服务，指定主机和端口
+    s.connect((host, port))
+    #发送数据
+    s.send(b'GET / HTTP/1.1\r\nHost: www.baidu.com\r\nConnection: close\r\n\r\n')
+    # 接收数据
+    buffer = []
+    while True:
+        # 每次最多接收1k字节
+        d = s.recv(1024)
+        if d:
+            buffer.append(d)
+        else:
+            break
+    data = b''.join(buffer)
+
+    header, html = data.split(b'\r\n\r\n', 1)
+    print(header.decode('utf-8'))
+    # 把接收的数据写入文件
+    with open('baidu.html', 'wb') as f:
+        f.write(html)
+    s.close()
+
+def main():
+    socket_client()
+
+if __name__ == '__main__':
+    main()
+
+	
+	
+	
+15.4.2  服务器
+服务端代码实现：
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+import socket
+import threading
+import time
+
+def socket_server():
+    # 创建 socket 对象
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # 获取本地主机名
+    host = socket.gethostname()
+
+    port = 9999
+
+    # 绑定端口
+    server_socket.bind((host, port))
+
+    # 设置最大连接数，超过后排队
+    server_socket.listen(5)
+
+    while True:
+        # 接受一个新连接
+        sock, addr = server_socket.accept()
+        # 创建新线程处理TCP连接
+        t = threading.Thread(target=tcp_link, args=(sock, addr))
+        t.start()
+
+def tcp_link(sock, addr):
+    print('Accept new connection from %s:%s...' % addr)
+    sock.send('欢迎学习Python网络编程!'.encode('utf-8'))
+    while True:
+        data = sock.recv(1024)
+        time.sleep(1)
+        if not data or data.decode('utf-8') == 'exit':
+            break
+        sock.send(('Hello, %s!' % data.decode('utf-8')).encode('utf-8'))
+    sock.close()
+    print('Connection from %s:%s closed.' % addr)
+
+def main():
+    socket_server()
+
+if __name__ == '__main__':
+    main()
+
+	
+客户端代码实现：
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+import socket
+
+def socket_client():
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # 获取本地主机名
+    host = socket.gethostname()
+    port = 9999
+    # 建立连接
+    s.connect((host, port))
+    # 接收欢迎消息
+    print(s.recv(1024).decode('utf-8'))
+    for data in ['小萌', '小智', '小强']:
+       # 发送数据
+       s.send(data.encode('utf-8'))
+       print(s.recv(1024).decode('utf-8'))
+    s.send(b'exit')
+    s.close()
+
+def main():
+    socket_client()
+
+if __name__ == '__main__':
+    main()
+
+	
+	
+	
+15.5  UDP编程
+服务器端：
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+import socket
+
+def socket_udp_server():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    host = socket.gethostname()
+    port = 9999
+    # 绑定端口
+    s.bind((host, port))
+
+    while True:
+        # 接收数据
+        data, addr = s.recvfrom(1024)
+        print('Received from %s:%s.' % addr)
+        s.sendto(b'hello, %s,welcome!' % data, addr)
+
+def main():
+    socket_udp_server()
+
+if __name__ == "__main__":
+    main()
+
+客户端：
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+import socket
+
+def socket_udp_client():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    for data in ['小萌', '小智']:
+        host = socket.gethostname()
+        port = 9999
+        # 发送数据
+        s.sendto(data.encode('utf-8'), (host, port))
+        # 接收数据
+        print(s.recv(1024).decode('utf-8'))
+    s.close()
+
+def main():
+    socket_udp_client()
+
+if __name__ == '__main__':
+    main()
+
+	
+	
+	
+15.6.1  GET请求
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+from urllib import request
+
+def get_request():
+    with request.urlopen('http://www.baidu.com') as f:
+        data = f.read()
+        print('Status:', f.status, f.reason)
+        for k, v in f.getheaders():
+            print('%s: %s' % (k, v))
+    print('Data:', data.decode('utf-8'))
+
+def main():
+    get_request()
+
+if __name__ == "__main__":
+    main()
+	
+运行程序，得到HTTP响应的头和JSON数据，如下：
+Status: 200 OK
+Content-Type: text/html
+Content-Length: 6234 
+Data: <!DOCTYPE html><html><head><meta http-equiv="content-type"content="text/html;charset=utf-8"/><meta http-equiv="X-UA-Compatible"content="IE=Edge"/><meta content="never"name="referrer"/><title>百度一下，你就知道
+
+
+
+
+
+15.6.2  POST请求
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+from urllib import request, parse
+
+def login_post():
+    print('Login to weibo.cn...')
+    email = input('Email: ')
+    passwd = input('Password: ')
+    login_data = parse.urlencode([
+        ('username', email),
+        ('password', passwd),
+        ('entry', 'mweibo'),
+        ('client_id', ''),
+        ('savestate', '1'),
+        ('ec', ''),
+        ('pagerefer',
+         'https://passport.weibo.cn/signin/welcome?'
+         'entry=mweibo&r=http%3A%2F%2Fm.weibo.cn%2F')
+    ])
+
+    req = request.Request('https://passport.weibo.cn/sso/login')
+    req.add_header('Origin', 'https://passport.weibo.cn')
+    req.add_header('User-Agent',
+                   'Mozilla/6.0  AppleWebKit/536.26 '
+                   '(KHTML, like Gecko) Version/8.0'
+                   ' Safari/8536.25')
+    req.add_header('Referer',
+                   'https://passport.weibo.cn/signin/login?'
+                   'entry=mweibo&res=wel&wm=3349'
+                   '&r=http%3A%2F%2Fm.weibo.cn%2F')
+
+    with request.urlopen(req, data=login_data.encode('utf-8')) as f:
+        print('Status:', f.status, f.reason)
+        for k, v in f.getheaders():
+            print('%s: %s' % (k, v))
+        print('Data:', f.read().decode('utf-8'))
+
+def main():
+    login_post()
+
+if __name__ == "__main__":
+    main()
+
+执行该程序，并输入对应的email和password，若账户存在，则得到如下结果：
+Status: 200 OK
+Server: nginx/1.2.0
+Date: Sat, 22 Oct 2016 08:38:37 GMT
+......
+Set-Cookie: SSOLoginState=1477125517; path=/; domain=weibo.cn
+......
+Data: {"retcode":20000000,"msg":"","data":{...,"uid":"3538172252"}}
+
+若登录失败，则得到如下输出结果：
+Status: 200 OK
+Server: nginx/1.2.0
+Date: Sat, 22 Oct 2016 08:46:04 GMT
+......
+Data: {"retcode":50011015,"msg":"\u7528\u6237\u540d\u6216\u5bc6\u7801\u9519\u8bef","data":{"username":"test@aliyun.com","errline":634}}
