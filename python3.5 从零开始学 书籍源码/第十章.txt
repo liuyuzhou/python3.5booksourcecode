@@ -1,89 +1,89 @@
-10.2.1  time()����
+10.2.1  time()函数
 #! /usr/bin/python3
 # -*- coding:UTF-8 -*-
 
 import time
 
-print('��ǰʱ���ʱ���: %f ' %  time.time())
+print('当前时间的时间戳: %f ' %  time.time())
 
-ִ�н����
-��ǰʱ���ʱ���: 1474763819.543787
-
-
+执行结果：
+当前时间的时间戳: 1474763819.543787
 
 
-10.2.2  localtime([secs])����
+
+
+10.2.2  localtime([secs])函数
 import time
 
 print('time.localtime() : ', time.localtime())
 
-ִ�н����
+执行结果：
 time.localtime() :  time.struct_time(tm_year=2016, tm_mon=9, tm_mday=25, tm_hour=8, tm_min=51, tm_sec=42, tm_wday=6, tm_yday=269, tm_isdst=0)
 
 
 
 
-10.2.3  gmtime([secs])����
+10.2.3  gmtime([secs])函数
 import time
 
 print('time.gmtime() : ', time.gmtime())
 
-ִ�н����
+执行结果：
 time.gmtime() :  time.struct_time(tm_year=2016, tm_mon=9, tm_mday=25, tm_hour=0, tm_min=56, tm_sec=22, tm_wday=6, tm_yday=269, tm_isdst=0)
 
 
 
 
-10.2.4  mktime(t)����
+10.2.4  mktime(t)函数
 import time
 
 t = (2016, 9, 25, 17, 35, 38, 6, 48, 0)
 print ('time.mktime(t) : %f' % time.mktime(t))
 
-ִ�н����
+执行结果：
 time.mktime(t) : 1474796138.000000
 
 
 
 
-10.2.5  asctime([t])����
+10.2.5  asctime([t])函数
 import time
 
 t = time.localtime()
 print ('time.asctime(t): %s ' % time.asctime(t))
 
-ִ�н����
+执行结果：
 time.asctime(t): Sun Sep 25 09:09:37 2016
 
 
 
 
-10.2.6  ctime([secs])����
+10.2.6  ctime([secs])函数
 import time
 
 print ('time.ctime() : %s' % time.ctime())
 
-ִ�н����
+执行结果：
 time.ctime() : Sun Sep 25 09:16:22 2016
 
 
 
 
-10.2.7  sleep(secs)����
+10.2.7  sleep(secs)函数
 import time
 
 print ('Start : %s' % time.ctime())
 time.sleep(5)
 print ('End : %s' % time.ctime())
 
-ִ�н����
+执行结果：
 Start : Sun Sep 25 09:22:36 2016
 End : Sun Sep 25 09:22:41 2016
 
 
 
 
-10.2.8  clock()����
+10.2.8  clock()函数
 import time
 
 def procedure():
@@ -99,45 +99,45 @@ t2 = time.time()
 procedure()
 print('seconds wall time : ',time.time() - t2)
 
-ִ�н����
+执行结果：
 seconds process time :  1.9991468375899508
 seconds wall time :  2.0001144409179688
 
 
 
 
-10.2.9  strftime(format[, t])����
+10.2.9  strftime(format[, t])函数
 import time
 
 t = (2016, 9, 25, 17, 50, 38, 6, 48, 0)
 t = time.mktime(t)
 print(time.strftime('%b %d %Y %H:%M:%S', time.gmtime(t)))
 
-ִ�н����
+执行结果：
 Sep 25 2016 09:50:38
 
 
 
 
-10.2.10  strptime(string[, format])����
+10.2.10  strptime(string[, format])函数
 import time
 
 struct_time = time.strptime("25 Sep 16", "%d %b %y")
 print('returned tuple: ', struct_time)
 
-ִ�н����
+执行结果：
 returned tuple:  time.struct_time(tm_year=2016, tm_mon=9, tm_mday=25, tm_hour=0, tm_min=0, tm_sec=0, tm_wday=6, tm_yday=269, tm_isdst=-1)
 
 
 
 
-10.3  datetimeģ��
+10.3  datetime模块
 1. today()
 import datetime
 
 print('today is:', datetime.datetime.today())
 
-ִ�н����
+执行结果：
 today is: 2016-09-25 15:37:08.900990
 
 
@@ -146,7 +146,7 @@ import datetime
 
 print('now is:', datetime.datetime.now())
 
-ִ�н����
+执行结果：
 now is: 2016-09-25 15:40:31.634641
 
 
@@ -155,7 +155,7 @@ import datetime
 
 print('utcnow is:', datetime.datetime.utcnow())
 
-ִ�н����
+执行结果：
 utcnow is: 2016-09-25 07:42:08.520898
 
 
@@ -164,7 +164,7 @@ import datetime
 
 print('fromtimestamp is:', datetime.datetime.fromtimestamp(time.time()))
 
-ִ�н����
+执行结果：
 fromtimestamp is: 2016-09-25 15:58:42.704378
 
 
@@ -173,7 +173,7 @@ import datetime
 
 print('utcfromtimestamp is:', datetime.datetime.utcfromtimestamp(time.time()))
 
-ִ�н����
+执行结果：
 utcfromtimestamp is: 2016-09-25 07:58:42.704378
 
 
@@ -183,7 +183,7 @@ import datetime
 dt = datetime.datetime.now()
 print('strptime is:', dt.strptime(str(dt), '%Y-%m-%d %H:%M:%S.%f'))
 
-ִ�н����
+执行结果：
 strptime is: 2016-09-25 15:58:42.704378
 
 
@@ -193,7 +193,7 @@ import datetime
 dt = datetime.datetime.now()
 print('strftime is: ', dt.strftime('%Y-%m-%d %H:%M:%S'))
 
-ִ�н����
+执行结果：
 strftime is:  2016-09-25 16:06:39
 
 
@@ -201,41 +201,45 @@ strftime is:  2016-09-25 16:06:39
 #-*- coding:UTF-8 -*-
 
 dt = datetime.datetime.now()
-print('��ǰʱ�䣺', dt)
+print('当前时间：', dt)
 print('(%Y-%m-%d %H:%M:%S %f): ', dt.strftime('%Y-%m-%d %H:%M:%S %f'))
 print('(%Y-%m-%d %H:%M:%S %p): ', dt.strftime('%y-%m-%d %I:%M:%S %p'))
 print('%%a: %s ' % dt.strftime('%a'))
 print('%%A: %s ' % dt.strftime('%A'))
 print('%%b: %s ' % dt.strftime('%b'))
 print('%%B: %s ' % dt.strftime('%B'))
-print('����ʱ��%%c: %s ' % dt.strftime('%c'))
-print('����%%x��%s ' % dt.strftime('%x'))
-print('ʱ��%%X��%s ' % dt.strftime('%X'))
-print('���������ܵĵ� %s �� ' % dt.strftime('%w'))
-print('�����ǽ���ĵ� %s �� ' % dt.strftime('%j'))
-print('�����ǽ���ĵ� %s �� ' % dt.strftime('%U'))
+print('日期时间%%c: %s ' % dt.strftime('%c'))
+print('日期%%x：%s ' % dt.strftime('%x'))
+print('时间%%X：%s ' % dt.strftime('%X'))
+print('今天是这周的第 %s 天 ' % dt.strftime('%w'))
+print('今天是今年的第 %s 天 ' % dt.strftime('%j'))
+print('这周是今年的第 %s 周 ' % dt.strftime('%U'))
 
-ִ�н����
-��ǰʱ�䣺 2016-09-25 16:15:16.612006
+执行结果：
+当前时间： 2016-09-25 16:15:16.612006
 (%Y-%m-%d %H:%M:%S %f):  2016-09-25 16:15:16 612006
 (%Y-%m-%d %H:%M:%S %p):  16-09-25 04:15:16 PM
 %a: Sun 
 %A: Sunday 
 %b: Sep 
 %B: September 
-����ʱ��%c: Sun Sep 25 16:15:16 2016 
-����%x��09/25/16 
-ʱ��%X��16:15:16 
-���������ܵĵ� 0 �� 
-�����ǽ���ĵ� 269 �� 
-�����ǽ���ĵ� 39 ��
+日期时间%c: Sun Sep 25 16:15:16 2016 
+日期%x：09/25/16 
+时间%X：16:15:16 
+今天是这周的第 0 天 
+今天是今年的第 269 天 
+这周是今年的第 39 周
 
 
 
 
-10.5  ţ��С�ԡ���ʱ����ӻ�
+10.5  牛刀小试——时间大杂烩
 #!/usr/bin/python
 #-*- coding:UTF-8 -*-
+
+from time import strftime, localtime
+from datetime import timedelta, date
+import calendar
 
 year = strftime("%Y", localtime())
 mon  = strftime("%m", localtime())
@@ -379,9 +383,9 @@ def addzero(n):
 
 def get_today_month(n=0):
     '''''
-    ��ȡ��ǰ����ǰ��N�µ�����
-    if n>0, ��ȡ��ǰ����ǰN�µ�����
-    if n<0, ��ȡ��ǰ���ں�N�µ�����
+    获取当前日期前后N月的日期
+    if n>0, 获取当前日期前N月的日期
+    if n<0, 获取当前日期后N月的日期
     date format = "YYYY-MM-DD"
     '''
     (y, m, d) = getyearandmonth(n)
@@ -410,7 +414,7 @@ def main():
 if __name__=="__main__":
     main()
 
-ִ��Ч����
+执行效果：
 today is: 2016-09-25
 today is: 20160925
 the date time is: 2016-09-25 11:27:14
