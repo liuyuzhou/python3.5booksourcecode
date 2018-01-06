@@ -1,0 +1,264 @@
+17.3  爬虫常用的几种技巧
+17.3.1  基本方法
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+from urllib import request
+
+response = request.urlopen("https://movie.douban.com/")
+content = response.read().decode('utf-8')
+print(content)
+
+
+
+
+17.3.2  使用代理服务器
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+from urllib import request
+
+proxy_support = request.ProxyHandler({'http':'http://xx.xx.xx.xx:xx'})  
+opener = request.build_opener(proxy_support, request.HTTPHandler)  
+request.install_opener(opener)  
+  
+content = request.urlopen('https://movie.douban.com/').read().decode('utf-8')  
+print(content)
+
+
+
+
+17.3.3  cookie处理
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+from urllib import request
+from http import cookiejar  
+
+cookie_support = request.HTTPCookieProcessor(cookiejar.CookieJar())  
+opener = request.build_opener(cookie_support, request.HTTPHandler)  
+request.install_opener(opener)  
+
+content = request.urlopen('https://movie.douban.com/').read().decode('utf-8')  
+print(content)
+
+
+
+
+17.3.4  伪装成浏览器
+postdata = parse.urlencode({})  
+headers = {  
+    'User-Agent':'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'  
+}  
+req = request.Request(  
+    url = 'https://www.zhihu.com/',  
+    data = postdata,  
+    headers = headers  
+)
+
+
+
+
+17.3.5  登录
+postdata = parse.urlencode({  
+    'username':'XXXXX',  
+    'password':'XXXXX',  
+    'continueURI':'http://www.verycd.com/',  
+    'fk':'fkasdfasdf',  
+    'login_submit':'登录',  
+}) 
+
+
+req = request.Request(  
+    url = 'https://www.zhihu.com/',  
+    data = postdata  
+)  
+content = request.urlopen(req).read()  
+  
+print(content) 
+
+
+
+
+17.4  爬虫示例——抓取豆瓣电影Top250影评数据
+17.4.2  页面抓取
+class MovieTop(object):
+    def __init__(self):
+        self.start = 0
+        self.param= '&filter='
+        self.headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64)'}
+
+    def get_page(self):
+        page_content = []
+        try:
+            while self.start <= 225:
+                url = 'https://movie.douban.com/top250?start=' + str(self.start)
+                req = request.Request(url, headers = self.headers)
+                response = request.urlopen(req)
+                page = response.read().decode('utf-8')
+                page_num = (self.start + 25)//25
+                print('正在抓取第' + str(page_num) + '页数据...' )
+                self.start += 25
+                page_content.append(page)
+            return page_content
+        except request.URLError as e:
+            if hasattr(e, 'reason'):
+                print('抓取失败，失败原因：', e.reason)
+
+    def main(self):
+        print('开始从豆瓣电影抓取数据........')
+        self.get_page()
+        print('数据抓取完毕...')
+
+		
+		
+		
+17.4.3  提取相关信息
+html_text = '<p class="name">导演: 冯小刚</p>'
+reObj = re.compile(u'<p.*?class="name">导演: (.*?)</p>.*?')
+print(reObj.findall(html_text))
+
+输出结果：
+['冯小刚']
+
+
+html_text = '<p class="info">导演: 陈凯歌 Kaige Chen&nbsp;&nbsp;&nbsp;' \
+    '主演: 张国荣 Leslie Cheung / 张丰毅 Fengyi Zha...<br>' \
+    '1993&nbsp;/&nbsp;中国大陆 香港&nbsp;/&nbsp;剧情 爱情</p>'
+# s='<span>740137人评价</span>'
+reObj1 = re.compile(u'<p.*?class="info">导演: (.*?)'
+                    + u'&nbsp;&nbsp;&nbsp;.*?<br>'
+                    + u'(.*?)&nbsp;/&nbsp;(.*?)'
+                    + u'&nbsp;/&nbsp;(.*?)</p>.*?')
+print(reObj1.findall(html_text))
+
+执行结果：
+[('陈凯歌 Kaige Chen', '1993', '中国大陆 香港', '剧情 爱情')]
+
+
+
+
+17.4.4  写入文件
+file_top = open(self.file_path, 'w', encoding='utf-8')
+
+file_top.write(obj)
+
+
+def write_text(self):
+        print('开始向文件写入数据.........')
+        file_top = open(self.file_path, 'w', encoding='utf-8')
+...
+
+
+
+
+17.4.5  完善代码
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+from urllib import request
+from common.mysql_client import *
+import re
+
+class MovieTop(object):
+      def __init__(self):
+         self.start = 0
+         self.param= '&filter='
+         self.headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64)'}
+         self.movie_list = []
+         self.file_path = 'D:\movie_spider.txt'
+
+      def get_page(self):
+          try:
+             url = 'https://movie.douban.com/top250?start=' + str(self.start)
+             req = request.Request(url, headers = self.headers)
+             response = request.urlopen(req)
+             page = response.read().decode('utf-8')
+             page_num = (self.start + 25)//25
+             print('正在抓取第' + str(page_num) + '页数据...' )
+             self.start += 25
+             return page
+          except request.URLError as e:
+             if hasattr(e, 'reason'):
+                 print('抓取失败，失败原因：', e.reason)
+
+      def get_movie_info(self):
+          pattern = re.compile(u'<div.*?class="item">.*?'
+                              + u'<div.*?class="pic">.*?'
+                              + u'<em.*?class="">(.*?)</em>.*?'
+                              + u'<div.*?class="info">.*?'
+                              + u'<span.*?class="title">(.*?)'
+                              + u'</span>.*?<span.*?class="title">(.*?)</span>.*?'
+                              + u'<span.*?class="other">(.*?)</span>.*?</a>.*?'
+                              + u'<div.*?class="bd">.*?<p.*?class="">.*?'
+                              + u'导演: (.*?)&nbsp;&nbsp;&nbsp;.*?<br>'
+                              + u'(.*?)&nbsp;/&nbsp;(.*?)&nbsp;/&nbsp;'
+                              + u'(.*?)</p>.*?<div.*?class="star">.*?'
+                              + u'<span.*?'
+                              + u'class="rating_num".*?property="v:average">'
+                              + u'(.*?)</span>.*?'
+                              + u'.*?<span>(.*?)人评价</span>.*?'
+                              + u'<p.*?class="quote">.*?'
+                              + u'<span.*?class="inq">(.*?)'
+                              + u'</span>.*?</p>', re.S)
+
+          while self.start <= 225:
+              page = self.get_page()
+              movies = re.findall(pattern, page)
+              for movie in movies:
+                  self.movie_list.append([movie[0], movie[1],
+                                          movie[2].lstrip('&nbsp;/&nbsp;'),
+                                          movie[3].lstrip('&nbsp;/&nbsp;'),
+                                          movie[4],
+                                          movie[5].lstrip(),
+                                          movie[6],
+                                          movie[7].rstrip(),
+                                          movie[8],
+                                          movie[9],
+                                          movie[10]])
+
+      def write_text(self):
+          print('开始向文件写入数据.........')
+          file_top = open(self.file_path, 'w', encoding='utf-8')
+          try:
+              for movie in self.movie_list:
+                file_top.write('电影排名：' + movie[0] + '\r\n')
+                file_top.write('电影名称：' + movie[1] + '\r\n')
+                file_top.write('外文名称：' + movie[2] + '\r\n')
+                file_top.write('电影别名：' + movie[3] + '\r\n')
+                file_top.write('导演姓名：' + movie[4] + '\r\n')
+                file_top.write('上映年份：' + movie[5] + '\r\n')
+                file_top.write('制作国家/地区：' + movie[6] + '\r\n')
+                file_top.write('电影类别：' + movie[7] + '\r\n')
+                file_top.write('电影评分：' + movie[8] + '\r\n')
+                file_top.write('参评人数：' + movie[9] + '\r\n')
+                file_top.write('简短影评：' + movie[10] + '\r\n\r\n')
+              print('抓取结果写入文件成功...')
+          except Exception as e:
+              print(e)
+          finally:
+              file_top.close()
+
+
+      def main(self):
+         print('开始从豆瓣电影抓取数据........')
+         self.get_movie_info()
+         self.write_text()
+         print('数据抓取完毕...')
+
+dou_ban_spider = MovieTop()
+dou_ban_spider.main()
+
+
+执行程序，结果大致形式：
+电影排名：1 
+电影名称：肖申克的救赎 
+外文名称：The Shawshank Redemption 
+电影别名：月黑高飞(港)  /  刺激1995(台) 
+导演姓名：弗兰克·德拉邦特 Frank Darabont 
+上映年份：1994 
+制作国家/地区：美国 
+电影类别：犯罪 剧情 
+电影评分：9.6 
+参评人数：740538 
+简短影评：希望让人自由。

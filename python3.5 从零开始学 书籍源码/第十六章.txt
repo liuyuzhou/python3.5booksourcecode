@@ -1,0 +1,270 @@
+16.3.1  数据库连接
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+import pymysql
+
+def db_connect():
+    # 打开数据库连接
+    db = pymysql.connect("localhost", "root", "root", "test")
+
+    # 使用cursor()方法创建一个游标对象cursor
+    cursor = db.cursor()
+
+    # 使用execute()方法执行SQL查询
+    cursor.execute("SELECT VERSION()")
+
+    # 使用 fetchone() 方法获取单条数据
+    data = cursor.fetchone()
+
+    print ("Database version : %s " % data)
+
+    # 关闭数据库连接
+    db.close()
+
+def main():
+    db_connect()
+
+if __name__ == "__main__":
+    main()
+
+执行结果：
+Database version : 5.5.28
+
+
+
+
+16.3.2  创建数据库表
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+import pymysql
+
+def create_table():
+    db = pymysql.connect("localhost", "root", "root", "test")
+    # 使用 cursor() 方法创建一个游标对象cursor
+    cursor = db.cursor()
+
+    # 使用 execute() 方法执行 SQL，如果表存在就删除
+    cursor.execute("DROP TABLE IF EXISTS EMPLOYEE")
+
+    # 使用预处理语句创建表
+    sql = """CREATE TABLE EMPLOYEE (
+         FIRST_NAME  CHAR(20) NOT NULL,
+         LAST_NAME  CHAR(20),
+         AGE INT,
+         SEX CHAR(1),
+         INCOME FLOAT,
+         CREATE_TIME DATETIME)"""
+    try:
+        cursor.execute(sql)
+        print("CREATE TABLE SUCCESS.")
+    except Exception as e:
+        print("CREATE TABLE FAILED,CASE:%s" % e)
+    finally:
+        # 关闭数据库连接
+        db.close()
+
+def main():
+    create_table()
+
+if __name__ == "__main__":
+    main()
+
+执行结果：
+CREATE TABLE SUCCESS.
+
+
+
+
+16.3.3  数据库插入 
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+import pymysql
+import datetime
+
+def insert_record():
+    db = pymysql.connect("localhost", "root", "root", "test")
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+
+    # SQL 插入语句
+    sql = "INSERT INTO EMPLOYEE(FIRST_NAME,LAST_NAME, AGE, SEX, INCOME," \
+          " CREATE_TIME) VALUES('%s', '%s', %d, '%c', %d, '%s')" \
+          % ('xiao', 'zhi', 22, 'M', 30000, datetime.datetime.now())
+    try:
+       # 执行sql语句
+       cursor.execute(sql)
+       # 提交到数据库执行
+       db.commit()
+       print("INSERT SUCCESS.")
+    except Exception as e:
+       print('INSERT INTO MySQL table failed.Case:%s' % e)
+       # 如果发生错误就回滚
+       db.rollback()
+    finally:
+        # 关闭数据库连接
+        db.close()
+
+def main():
+    insert_record()
+
+if __name__ == "__main__":
+    main()
+	
+执行结果：
+INSERT SUCCESS
+
+
+
+
+16.3.4  数据库查询
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+import pymysql
+
+def query_data():
+    # 打开数据库连接
+    db = pymysql.connect("localhost", "root", "root", "test")
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+
+    # SQL 查询语句
+    sql = "SELECT * FROM EMPLOYEE WHERE INCOME > %d" % 10000
+    try:
+       # 执行SQL语句
+       cursor.execute(sql)
+       # 获取所有记录列表
+       results = cursor.fetchall()
+       for row in results:
+          fname = row[0]
+          lname = row[1]
+          age = row[2]
+          sex = row[3]
+          income = row[4]
+          create_time = row[5]
+          # 输出结果
+          print("first_name=%s,last_name=%s,age=%d,\n"
+                "sex=%s,income=%d,create_time=%s" %
+              (first_name, last_name, age, sex, income, create_time))
+    except Exception as e:
+       print("Error: unable to fecth data.Error info:%s" % e)
+    finally:
+        # 关闭数据库连接
+        db.close()
+
+def main():
+    query_data()
+
+if __name__ == "__main__":
+    main()
+
+执行结果：
+first_name=xiao,last_name=zhi,age=22,
+sex=M,income=30000,create_time=2016-10-05 22:29:37
+
+
+
+
+16.3.5  数据库更新
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+import pymysql
+
+def update_table():
+    # 打开数据库连接
+    db = pymysql.connect("localhost", "root", "root", "test")
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+
+    # SQL 更新语句
+    sql = "UPDATE EMPLOYEE SET AGE = AGE + 1 WHERE SEX = '%s'" % 'M'
+    try:
+       # 执行SQL语句
+       cursor.execute(sql)
+       # 提交到数据库执行
+       db.commit()
+print("UPDATE SUCCESS.")
+    except Exception as e:
+       print('UPDATE MySQL table failed.Case:%s' % e)
+       # 发生错误时回滚
+       db.rollback()
+    finally:
+        # 关闭数据库连接
+        db.close()
+
+def main():
+    update_table()
+
+if __name__ == "__main__":
+    main()
+
+执行结果：
+UPDATE SUCCESS.
+
+
+
+
+16.3.6  数据库删除
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+import pymysql
+
+def delete_record():
+    # 打开数据库连接
+    db = pymysql.connect("localhost", "root", "root", "test")
+
+    # 使用cursor()方法获取操作游标
+    cursor = db.cursor()
+
+    # SQL 删除语句
+    sql = "DELETE FROM EMPLOYEE WHERE AGE > %d" % 22
+    try:
+       # 执行SQL语句
+       cursor.execute(sql)
+       # 提交修改
+       db.commit()
+       print("DELETE SUCCESS.")
+    except Exception as e:
+        print("DELETE RECORD FAILED.Case:%s" % e)
+        # 发生错误时回滚
+        db.rollback()
+    finally:
+        # 关闭连接
+        db.close()
+
+def main():
+    delete_record()
+
+if __name__ == "__main__":
+    main()
+
+执行结果：
+DELETE SUCCESS.
+
+
+
+
+16.4  事    务
+# SQL删除记录语句
+ql = "DELETE FROM EMPLOYEE WHERE AGE > %d" % 22
+    try:
+       # 执行SQL语句
+       cursor.execute(sql)
+       # 提交修改
+       db.commit()
+       print("DELETE SUCCESS.")
+    except Exception as e:
+        print("DELETE RECORD FAILED.Case:%s" % e)
+        # 发生错误时回滚
+        db.rollback()
+    finally:
+        # 关闭连接
+        db.close()

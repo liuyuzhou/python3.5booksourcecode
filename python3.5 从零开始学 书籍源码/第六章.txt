@@ -1,0 +1,651 @@
+6.2.1  import语句
+import math
+
+r=5
+print('半径为5的圆的面积为：%.2f' %(math.pi*r**2))
+
+
+D:\python\workspace>python import_test.py
+半径为5的圆的面积为：78.54
+
+
+import sys
+
+print('Python的搜索路径为：%s' % sys.path)
+
+
+D:\python\workspace>python import_sys.py
+Python的搜索路径为：['D:\\python\\workspace', 'E:\\python\\pythoninstall\\python
+35.zip', 'E:\\python\\pythoninstall\\DLLs', 'E:\\python\\pythoninstall\\lib', 'E:\\python\\pythoninstall', 'E:\\python\\pythoninstall\\lib\\site-packages']
+
+
+>>> from math import pi
+>>> print (pi)
+3.141592653589793
+
+
+>>> import math
+>>> print(math.pi)		#math.pi可以被输出
+3.141592653589793
+>>> print(math.sin(1))		#math.sin(1)可以被输出
+0.8414709848078965
+>>> print(math.exp(1))	#math.exp(1)可以被输出
+2.718281828459045
+>>> from math import pi
+>>> print (pi) 			#pi可以被输出
+3.141592653589793
+>>> print(sin(1))			#sin(1)不可以被输出
+Traceback (most recent call last):
+  File "<pyshell#51>", line 1, in <module>
+    print(sin(1))
+NameError: name 'sin' is not defined
+>>> print(exp(1))		#exp(1)不可以被输出
+Traceback (most recent call last):
+  File "<pyshell#52>", line 1, in <module>
+    print(exp(1))
+NameError: name 'exp' is not defined
+
+
+>>> import math
+>>> print(math.pi)
+3.141592653589793
+>>> print(pi)
+Traceback (most recent call last):
+  File "<pyshell#3>", line 1, in <module>
+    print(pi)
+NameError: name 'pi' is not defined
+>>> from math import pi
+>>> print(pi)
+3.141592653589793
+
+
+>>> from math import *
+>>> print(pi)				#pi可以被输出
+3.141592653589793
+>>> print(sin(1))				#sin(1)可以被输出
+0.8414709848078965
+>>> print(exp(1))			#exp(1)可以被输出
+2.718281828459045
+
+
+>>> import math as m
+>>> m.pi
+3.141592653589793
+
+
+>>> from math import pi as p
+>>> p
+3.141592653589793
+
+
+
+
+6.2.2  使用逗号输出
+>>> student='小智'
+>>> print('学生称呼：',student)
+学生称呼： 小智
+>>> greeting='大家好！'
+>>> intriduce='我叫小智，'
+>>> comefrom='我来自智慧城市。'
+>>> print(greeting,intriduce,comefrom)
+大家好！ 我叫小智， 我来自智慧城市。
+
+
+
+
+6.3.1  序列解包
+>>> x,y,z=1,2,3
+>>> print(x,y,z)
+1 2 3
+>>> x,y,z=1,2,3
+>>> x,y=y,x
+>>> print(x,y,z)
+2 1 3
+>>> nums=1,2,3
+>>> nums
+(1, 2, 3)
+>>> x,y,z=nums
+>>> x             #获得序列解开的值
+1
+>>> print(x,y,z)
+1 2 3
+>>> student={'name':'小萌','number':'1001'}
+>>> key,value=student.popitem()
+>>> key
+'number'
+>>> value
+'1001'
+>>> x,y,z=1,2,3
+>>> x,y,z
+(1, 2, 3)
+>>> x,y,z=1,2
+Traceback (most recent call last):
+  File "<pyshell#45>", line 1, in <module>
+    x,y,z=1,2
+ValueError: not enough values to unpack (expected 3, got 2)
+>>> x,y,z=1,2,3,4,5
+Traceback (most recent call last):
+  File "<pyshell#46>", line 1, in <module>
+    x,y,z=1,2,3,4,5
+ValueError: too many values to unpack (expected 3)
+
+
+
+
+6.3.2  链式赋值
+>>> x=y=z=10
+>>> x
+10
+>>> x=10
+>>> y=x
+>>> y
+10
+
+
+
+
+6.3.3  增量赋值
+>>> x=5
+>>> x+=1   #加
+>>> x
+6
+>>> x-=2 #减
+>>> x
+4
+>>> x*=2 #乘
+>>> x
+8
+>>> x/=4  #除
+>>> x
+2.0
+>>> field ='Hello,'
+>>> field += 'world'
+>>> field
+'Hello,world'
+>>> field*=2
+>>> field
+'Hello,worldHello,world'
+
+
+
+
+6.5.1  布尔变量的作用
+>>> True
+True
+>>> False
+False
+>>> True == 1
+True
+>>> False == 0
+True
+>>> True+False+2
+3
+>>> bool('good good study')
+True
+>>> bool('')
+False
+>>> bool(3)
+True
+>>> bool(0)
+False
+>>> bool([1])
+True
+>>> bool([])
+False
+>>> bool()
+False
+
+
+
+
+6.5.2  if语句
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+#if 基本用法
+
+greeting='hello'
+if greeting == 'hello':
+    print('hello')
+
+执行结果：
+hello
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+#if 基本用法
+greeting='hello'
+if greeting == 'hello':
+    student={'小萌': '1001', '小智': '1002', '小强': '1005','小张': '1006'}
+    print('字典元素个数为：%d个' % len(student))
+    student.clear()
+    print('字典删除后元素个数为：%d个' % len(student))
+
+执行结果：
+字典元素个数为：4个
+字典删除后元素个数为：0个
+
+
+
+
+6.5.3  else子句
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+greeting='hi'
+if greeting == 'hello':
+    print('hello')
+else:
+    print('该语句块不在if中，greeting的值不是hello')
+
+结果：
+该语句块不在if中，greeting的值不是hello
+
+
+
+
+6.5.4  elif子句
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+num = 10
+if num > 10:
+    print('num的值大于10')
+elif 0<=num<=10:
+    print('num的值介于0到10之间')
+else:
+    print('num的值小于0')
+
+结果：
+num的值介于0到10之间
+
+
+
+
+6.5.5  嵌套代码块
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+num = 10
+if num%2==0:
+    if num%3==0:
+        print ("你输入的数字可以整除 2 和 3")
+    elif num%4==0:
+        print ("你输入的数字可以整除 2 和 4")
+    else:
+        print ("你输入的数字可以整除 2，但不能整除 3 和 4")
+else:
+    if num%3==0:
+        print ("你输入的数字可以整除 3，但不能整除 2")
+    else:
+        print  ("你输入的数字不能整除 2 和 3")
+
+结果：
+你输入的数字可以整除 2，但不能整除 3 和 4
+		
+
+		
+		
+6.5.6  更多操作
+1. is：同一性运算符
+>>> x=y=[1,2,3]
+>>> z=[1,2,3]
+>>> x==y
+True
+>>> x==z
+True
+>>> x is y
+True
+>>> x is z
+False
+>>> x=[1,2,3]
+>>> y=[1,5]
+>>> x is not y
+True
+>>> del x[2]
+>>> x
+[1, 2]
+>>> y[1]=2
+>>> y
+[1, 2]
+>>> x==y
+True
+>>> x is y
+False
+
+
+2. 比较字符串和序列
+>>> [1,2]<[2,1]
+True
+>>> [1,2]<[1,2]
+False
+>>> [1,2]==[1,2]
+True
+>>> [2,[1,2]]<[2,[1,3]]
+True
+
+
+3. 布尔运算符
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+num = 10
+if num <= 10:
+    if num>=5:
+        print('num的值介于5到10之间')
+    else:
+        print('num的值不介于5到10之间')
+else:
+    print('num的值不介于5到10之间')
+
+	
+	
+	
+6.5.7  断言
+>>> x=3
+>>> assert x > 0, "x is not zero or negative"
+>>> assert x%2 == 0, "x is not an even number" #提示x不是偶数
+Traceback (most recent call last):
+  File "<pyshell#81>", line 1, in <module>
+    assert x%2 == 0, "x is not an even number"
+AssertionError: x is not an even number
+
+
+
+
+6.6.1  while循环
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+n=1
+while n<=100:
+    print('当前数字是：',n)
+    n += 1
+
+	
+	
+
+
+6.6.2  for循环
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+n=0
+fields=['a','b','c']
+while n<len(fields):
+    print('当前字母是：',fields[n])
+    n += 1
+
+	
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+fields=['a','b','c']
+for f in fields:
+    print('当前字母是：',f)
+
+结果：
+当前字母是： a
+当前字母是： b
+当前字母是： c
+
+
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+print('-----for循环字符串-----------')	
+for letter in 'good':    #for循环字符串
+   print ('当前字母 :', letter)
+
+print('-----for循环数字序列-----------')	
+number=[1,2,3]
+for num in  number:    #for循环数字序列
+    print('当前数字：',num)
+
+print('-----for循环字典-----------')
+tups={'name':'小智','number':'1002'}
+for tup in tups:   #for循环字典
+    print('%s:%s' % (tup,tups[tup]))
+
+结果：
+-----for循环字符串-----------
+当前字母 : g
+当前字母 : o
+当前字母 : o
+当前字母 : d
+-----for循环数字序列-----------
+当前数字： 1
+当前数字： 2
+当前数字： 3
+-----for循环字典-----------
+number:1002
+name:小智
+
+
+
+
+6.6.3  循环遍历字典元素
+tups={'name':'小智','number':'1002'}
+for key,value in tups.items():
+    print('%s:%s' % (key,value))
+
+结果：
+number:1002
+name:小智
+
+
+
+
+6.6.4  迭代工具
+1. 并行迭代
+#! /usr/bin/python3
+#-*- coding:UTF-8 -*-
+
+student=['xiaomeng','xiaozhi','xiaoqiang']
+number=[1001,1002,1003]
+for i in range(len(student)):
+    print(student[i],'的学号是：',number[i])
+
+结果：
+xiaomeng 的学号是：1001
+xiaozhi 的学号是：1002
+xiaoqiang 的学号是：1003
+
+
+#! /usr/bin/python3
+#-*- coding:UTF-8 -*-
+
+student=['xiaomeng','xiaozhi','xiaoqiang']
+number=[1001,1002,1003]
+for name,num in zip(student,number):
+    print(name,'的学号是：',num)
+
+	
+#! /usr/bin/python3
+#-*- coding:UTF-8 -*-
+
+for num1,num2 in zip(range(3),range(100)):
+    print('zip键值对为：',num1,num2)
+
+结果：
+zip键值对为： 0 0
+zip键值对为： 1 1
+zip键值对为： 2 2
+
+
+2. 翻转和排序迭代
+>>> sorted([5,3,7,1])
+[1, 3, 5, 7]
+>>> sorted('hello,world!')
+['!', ',', 'd', 'e', 'h', 'l', 'l', 'l', 'o', 'o', 'r', 'w']
+>>> list(reversed('hello,world!'))
+['!', 'd', 'l', 'r', 'o', 'w', ',', 'o', 'l', 'l', 'e', 'h']
+>>> ''.join(reversed('hello,world!'))
+'!dlrow,olleh'
+
+
+
+
+6.6.5  跳出循环
+1. break
+#! /usr/bin/python3
+#-*- coding:UTF-8 -*-
+
+for letter in 'hello':       #示例1 
+   if letter == 'l':
+      break
+   print ('当前字母为:', letter)
+  
+num = 10                   #示例2
+while num > 0:              
+   print ('输出数字为:', num)
+   num -= 1
+   if num == 8:
+      break
+
+结果：
+当前字母为: h
+当前字母为: e
+输出数字为: 10
+输出数字为: 9 
+
+
+2. continue
+#! /usr/bin/python3
+#-*- coding:UTF-8 -*-
+
+for letter in 'hello':     # 示例1
+   if letter == 'l':
+      continue
+   print ('当前字母 :', letter)
+
+num = 3                    # 示例2
+while num > 0:              
+   num -= 1
+   if num == 2:
+      continue
+   print ('当前变量值 :', num)
+
+结果：
+当前字母 : h
+当前字母 : e
+当前字母 : o
+当前变量值 : 1
+当前变量值 : 0
+
+
+
+
+6.6.6  循环中的else子句
+1. 在while循环中使用else语句
+#! /usr/bin/python3
+#-*- coding:UTF-8 -*-
+
+num = 0
+while num < 3:
+   print (num, " 小于 3")
+   num = num + 1
+else:
+   print (num, " 大于或等于 3")
+print("结束循环!")
+
+结果：
+0  小于 3
+1  小于 3
+2  小于 3
+3  大于或等于 3
+结束循环!
+
+
+2. 在for循环中使用else语句
+#! /usr/bin/python3
+#-*- coding:UTF-8 -*-
+
+names = ['xiaomeng', 'xiaozhi']
+for name in names:
+    if name == "xiao":
+        print("名称：",name)
+        break
+    print("循环名称列表 " + name)
+else:
+    print("没有循环数据!")
+print("结束循环!")
+
+结果：
+循环名称列表 xiaomeng
+循环名称列表 xiaozhi
+没有循环数据!
+结束循环!
+
+
+
+
+6.7  pass语句
+>>> pass
+>>>
+
+
+#! /usr/bin/python3
+#-*- coding:UTF-8 -*-
+
+name='xiaomeng'
+if name == 'xiaomeng':
+    print('hello')
+elif name == 'xiaozhi':
+    #预留，先不做任何处理
+else:
+    print('nothing')
+
+结果：
+  File "itertor.py", line 63
+    else:
+       ^
+IndentationError: expected an indented block
+
+
+#! /usr/bin/python3
+#-*- coding:UTF-8 -*-
+
+name='xiaomeng'
+if name == 'xiaomeng':
+    print('hello')
+elif name == 'xiaozhi':
+    #预留，先不做任何处理
+    pass
+else:
+    print('nothing')
+
+结果：
+hello
+
+
+
+
+6.8  牛刀小试——猜字游戏编写
+#! /usr/bin/python3
+#-*- coding:UTF-8 -*-
+
+import random
+
+number = random.randint(1,100)
+guess = 0
+while True:
+    num_input = input("请输入一个1到100的数字:")
+    guess +=1
+    if not num_input.isdigit():
+        print ("请输入数字。")
+    elif int(num_input)<0 or int(num_input)>=100:
+        print ("输入的数字必须介于1到100。")
+    else:
+        if number==int(num_input):
+            print ("恭喜您，您猜对了，您总共猜了 %d 次"%guess)
+            break
+        elif number>int(num_input):
+            print ("您输入的数字小了。")
+        elif number<int(num_input):
+            print ("您输入的数字大了。")
+        else:
+            print ("系统发生不可预测问题，请联系管理人员进行处理。")

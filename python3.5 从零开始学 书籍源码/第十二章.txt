@@ -1,0 +1,363 @@
+12.1  打开文件
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+path = 'd:/test.txt'
+f_name = open(path)
+print(f_name.name)
+
+执行结果：
+d:/test.txt
+
+
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+path = './test.txt'
+
+f_name = open(path, 'w')
+print(f_name.name)
+
+执行结果：
+./test.txt
+
+
+
+
+12.2.1  读和写
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+path = './test.txt'
+
+f_name = open(path,'r')
+print('read result:', f_name.read(12))
+
+执行结果：
+read result: Hello world!
+
+
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+path = './test.txt'
+
+f_name = open(path, 'w')
+print('write length:', f_name.write('Hello world!'))
+
+执行结果：
+write length: 12
+
+
+f_name = open(path,'r')
+print('read result:', f_name.read())
+
+执行结果：
+write length: 12
+read result: Hello world!
+
+
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+path = './test.txt'
+
+f_name = open(path, 'w')
+print('write length:', f_name.write('Hello world!'))
+f_name = open(path,'r')
+print('read result:', f_name.read())
+
+f_name = open(path, 'a')
+print(add length:', f_name.write('welcome!'))
+f_name = open(path,'r')
+print('read result:', f_name.read())
+
+执行结果：
+write length: 12
+read result: Hello world!
+add length: 8
+read result: Hello world!welcome!
+
+
+f_name = open(path, 'w')
+print('write length:', f_name.write('Hello world!'))
+f_name = open(path,'r')
+print('read result:', f_name.read())
+
+f_name = open(path, 'a')
+print(add length:', f_name.write('welcome!'))
+f_name = open(path,'r')
+print('read result:', f_name.read())
+
+执行结果：
+write length: 13
+read result: Hello world!
+
+add length: 8
+read result: Hello world!
+welcome!
+
+
+
+
+12.2.2  读写行
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+path = './test.txt'
+f_name = open(path, 'w')
+f_name.write('Hello world!\n')
+f_name = open(path, 'a')
+f_name.write('welcome!')
+f_name = open(path,'r')
+print('readline result:', f_name.readline())
+
+执行结果：
+readline result: Hello world!
+
+
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+path = './test.txt'
+f_name = open(path, 'w')
+str_list = ['Hello world!\n', 'welcome!\n', 'welcome!\n']
+print('write length:', f_name.writelines(str_list))
+f_name = open(path,'r')
+print('read result:', f_name.read())
+f_name = open(path,'r')
+print('readline result:', f_name.readlines())
+
+执行结果：
+write length: None
+read result: Hello world!
+welcome!
+welcome!
+
+readline result: ['Hello world!\n', 'welcome!\n', 'welcome!\n']
+
+
+
+
+12.2.3  关闭文件
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+path = './test.txt'
+f_name = open(path, 'w')
+print('write length:', f_name.write('Hello world!'))
+f_name.close()
+
+
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+path = './test.txt'
+try:
+    f_name = open(path, 'w')
+    print('write length:', f_name.write('Hello world!'))
+finally:
+    if f_name:
+        f_name.close()
+
+		
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+path = './test.txt'
+with open(path, 'w') as f:
+    f_name = open(path, 'w')
+    print('write length:', f_name.write('Hello world!'))
+
+	
+	
+	
+12.2.4  文件重命名
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+open('./test1.txt', 'w')
+os.rename('test1.txt','test2.txt')
+
+
+
+
+12.2.5  删除文件
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+try:
+    print('remove result:', os.remove('test2.txt'))
+except Exception:
+    print('file not found')
+
+	
+	
+	
+12.3.1  按字节处理
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+path = './test.txt'
+f_name = open(path, 'w')
+print('write length:', f_name.write('Hello'))
+f_name = open(path)
+c_str = f_name.read(1)
+while c_str:
+    print('read str is:', c_str)
+    c_str = f_name.read(1)
+f_name.close()
+
+执行结果：
+write length: 5
+read str is: H
+read str is: e
+read str is: l
+read strr is: l
+read str is: o
+
+
+
+
+12.3.2  按行操作
+f_name = open(path)
+while True:
+    line = f_name.readline(1)
+    if not c_str:
+        break
+    print('read line is:', line)
+f_name.close()
+
+
+
+
+12.3.3  使用fileinput实现懒加载式迭代
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+import fileinput
+
+for line in fileinput.input(path):
+    print('line is:', line)
+
+	
+	
+	
+12.3.4  文件迭代器
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+f_name = open(path)
+for line in f_name:
+    print('line is:', line)
+f_name.close()
+
+
+
+
+12.4  StringIO函数
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+from io import StringIO
+
+io_val = StringIO()
+io_val.write('hello')
+print('say:', io_val.getvalue())
+
+执行结果：
+say: hello
+
+
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+from io import StringIO
+
+io_val = StringIO('Hello\nWorld!\nWelcome!')
+while True:
+    line = io_val.readline()
+    if line == '':
+        break
+    print('line value:', line.strip())
+
+执行结果：
+line value: Hello
+line value: World!
+line value: Welcome!
+
+
+
+
+12.5.1  一般序列化与反序列化
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+import pickle
+
+d = dict(name='xiao zhi', num=1002)
+print(pickle.dumps(d))
+
+
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+import pickle
+
+try:
+    f_name = open('dump.txt', 'rb')
+    print('load result:', pickle.load(f_name))
+finally:
+    f_name.close()
+
+执行结果：
+load result: {'num': 1002, 'name': 'xiao zhi'}
+
+
+
+
+12.5.2  JSON序列化与反序列化
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+import json
+
+data = { 'num': 1002, 'name': 'xiao zhi'}
+json_str = json.dumps(data)
+print("Python 原始数据：", data)
+print("JSON 对象：", json_str)
+
+执行结果：
+Python 原始数据： {'name': 'xiao zhi', 'num': 1002}
+JSON 对象： {"name": "xiao zhi", "num": 1002}
+
+
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+import json
+
+data = { 'num': 1002, 'name': 'xiao zhi'}
+
+json_str = json.dumps(data)
+print("Python 原始数据：", data)
+print("JSON 对象：", json_str)
+
+data2 = json.loads(json_str)
+print ("data2['name']: ", data2['name'])
+print ("data2['num']: ", data2['num'])
+
+执行结果：
+Python 原始数据： {'num': 1002, 'name': 'xiao zhi'}
+JSON 对象： {"num": 1002, "name": "xiao zhi"}
+data2['name']:  xiao zhi
+data2['num']:  1002
+
+
+# 写入 JSON 数据
+with open('dump.txt', 'w') as f:
+    json.dump(data, f)
+
+# 读取数据
+with open('dump.txt', 'r') as f:
+    data = json.load(f)

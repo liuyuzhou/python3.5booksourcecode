@@ -1,0 +1,114 @@
+11.2  re模块
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+import re
+
+print(re.match('hello', 'hello world').span())  # 在起始位置匹配
+print(re.match('world', 'hello world'))         # 不在起始位置匹配
+
+执行结果：
+(0, 5)
+None
+
+
+
+
+11.2.2  re.search方法
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+import re
+
+print(re.search('hello', 'hello world').span())  # 在起始位置匹配
+print(re.search('world', 'hello world').span())  # 不在起始位置匹配
+
+执行结果：
+(0, 5)
+(6, 11)
+
+
+
+
+11.2.3  re.match与re.search的区别
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+import re
+
+line = 'Cats are smarter than dogs'
+
+matchObj = re.match(r'dogs', line, re.M | re.I)
+if matchObj:
+   print('use match,the match string is: ', matchObj.group())
+else:
+   print("No match string!!")
+
+matchObj = re.search( r'dogs', line, re.M | re.I)
+if matchObj:
+   print('use search,the match string is: ', matchObj.group())
+else:
+   print("No match string!!")
+
+执行结果：
+No match string!!
+use search,the match string is:  dogs
+
+
+
+
+11.3  贪婪模式和非贪婪模式
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+print(re.match(r'^(\d+)(0*)$', '102300').groups())
+
+执行结果：
+('102300', '')
+
+
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+print(re.match(r'^(\d+?)(0*)$', '102300').groups())
+
+执行结果：
+('1023', '00')
+
+
+
+
+
+11.4  替    换
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+pt = re.compile(r'(w+) (w+)')
+greeting = 'i say, hello world!'
+
+print(pt.sub(r'2 1', greeting))
+
+
+def func(m):
+    return m.group(1).title()+' '+m.group(2).title()
+
+print(pt.sub(func, greeting))
+
+执行结果：
+i say, hello world!
+i say, hello world!
+
+
+
+
+11.5  编    译
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+re_telephone = re.compile(r'^(\d{3})-(\d{3,8})$')
+print(re_telephone.match('010-12345').groups())
+print(re_telephone.match('010-8086').groups())
+
+执行结果：
+('010', '12345')
+('010', '8086')

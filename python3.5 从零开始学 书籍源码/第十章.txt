@@ -1,0 +1,423 @@
+10.2.1  time()函数
+#! /usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+import time
+
+print('当前时间的时间戳: %f ' %  time.time())
+
+执行结果：
+当前时间的时间戳: 1474763819.543787
+
+
+
+
+10.2.2  localtime([secs])函数
+import time
+
+print('time.localtime() : ', time.localtime())
+
+执行结果：
+time.localtime() :  time.struct_time(tm_year=2016, tm_mon=9, tm_mday=25, tm_hour=8, tm_min=51, tm_sec=42, tm_wday=6, tm_yday=269, tm_isdst=0)
+
+
+
+
+10.2.3  gmtime([secs])函数
+import time
+
+print('time.gmtime() : ', time.gmtime())
+
+执行结果：
+time.gmtime() :  time.struct_time(tm_year=2016, tm_mon=9, tm_mday=25, tm_hour=0, tm_min=56, tm_sec=22, tm_wday=6, tm_yday=269, tm_isdst=0)
+
+
+
+
+10.2.4  mktime(t)函数
+import time
+
+t = (2016, 9, 25, 17, 35, 38, 6, 48, 0)
+print ('time.mktime(t) : %f' % time.mktime(t))
+
+执行结果：
+time.mktime(t) : 1474796138.000000
+
+
+
+
+10.2.5  asctime([t])函数
+import time
+
+t = time.localtime()
+print ('time.asctime(t): %s ' % time.asctime(t))
+
+执行结果：
+time.asctime(t): Sun Sep 25 09:09:37 2016
+
+
+
+
+10.2.6  ctime([secs])函数
+import time
+
+print ('time.ctime() : %s' % time.ctime())
+
+执行结果：
+time.ctime() : Sun Sep 25 09:16:22 2016
+
+
+
+
+10.2.7  sleep(secs)函数
+import time
+
+print ('Start : %s' % time.ctime())
+time.sleep(5)
+print ('End : %s' % time.ctime())
+
+执行结果：
+Start : Sun Sep 25 09:22:36 2016
+End : Sun Sep 25 09:22:41 2016
+
+
+
+
+10.2.8  clock()函数
+import time
+
+def procedure():
+    time.sleep(2)
+
+# measure process time
+t1 = time.clock()
+procedure()
+print('seconds process time : ',time.clock() - t1)
+
+# measure wall time
+t2 = time.time()
+procedure()
+print('seconds wall time : ',time.time() - t2)
+
+执行结果：
+seconds process time :  1.9991468375899508
+seconds wall time :  2.0001144409179688
+
+
+
+
+10.2.9  strftime(format[, t])函数
+import time
+
+t = (2016, 9, 25, 17, 50, 38, 6, 48, 0)
+t = time.mktime(t)
+print(time.strftime('%b %d %Y %H:%M:%S', time.gmtime(t)))
+
+执行结果：
+Sep 25 2016 09:50:38
+
+
+
+
+10.2.10  strptime(string[, format])函数
+import time
+
+struct_time = time.strptime("25 Sep 16", "%d %b %y")
+print('returned tuple: ', struct_time)
+
+执行结果：
+returned tuple:  time.struct_time(tm_year=2016, tm_mon=9, tm_mday=25, tm_hour=0, tm_min=0, tm_sec=0, tm_wday=6, tm_yday=269, tm_isdst=-1)
+
+
+
+
+10.3  datetime模块
+1. today()
+import datetime
+
+print('today is:', datetime.datetime.today())
+
+执行结果：
+today is: 2016-09-25 15:37:08.900990
+
+
+2. now([tz])
+import datetime
+
+print('now is:', datetime.datetime.now())
+
+执行结果：
+now is: 2016-09-25 15:40:31.634641
+
+
+3. datetime.utcnow()
+import datetime
+
+print('utcnow is:', datetime.datetime.utcnow())
+
+执行结果：
+utcnow is: 2016-09-25 07:42:08.520898
+
+
+4. fromtimestamp(timestamp[, tz])
+import datetime
+
+print('fromtimestamp is:', datetime.datetime.fromtimestamp(time.time()))
+
+执行结果：
+fromtimestamp is: 2016-09-25 15:58:42.704378
+
+
+5. utcfromtimestamp(timestamp)
+import datetime
+
+print('utcfromtimestamp is:', datetime.datetime.utcfromtimestamp(time.time()))
+
+执行结果：
+utcfromtimestamp is: 2016-09-25 07:58:42.704378
+
+
+6. strptime(date_string, format)
+import datetime
+
+dt = datetime.datetime.now()
+print('strptime is:', dt.strptime(str(dt), '%Y-%m-%d %H:%M:%S.%f'))
+
+执行结果：
+strptime is: 2016-09-25 15:58:42.704378
+
+
+7. strftime(format)
+import datetime
+
+dt = datetime.datetime.now()
+print('strftime is: ', dt.strftime('%Y-%m-%d %H:%M:%S'))
+
+执行结果：
+strftime is:  2016-09-25 16:06:39
+
+
+#!/usr/bin/python
+#-*- coding:UTF-8 -*-
+
+dt = datetime.datetime.now()
+print('当前时间：', dt)
+print('(%Y-%m-%d %H:%M:%S %f): ', dt.strftime('%Y-%m-%d %H:%M:%S %f'))
+print('(%Y-%m-%d %H:%M:%S %p): ', dt.strftime('%y-%m-%d %I:%M:%S %p'))
+print('%%a: %s ' % dt.strftime('%a'))
+print('%%A: %s ' % dt.strftime('%A'))
+print('%%b: %s ' % dt.strftime('%b'))
+print('%%B: %s ' % dt.strftime('%B'))
+print('日期时间%%c: %s ' % dt.strftime('%c'))
+print('日期%%x：%s ' % dt.strftime('%x'))
+print('时间%%X：%s ' % dt.strftime('%X'))
+print('今天是这周的第 %s 天 ' % dt.strftime('%w'))
+print('今天是今年的第 %s 天 ' % dt.strftime('%j'))
+print('这周是今年的第 %s 周 ' % dt.strftime('%U'))
+
+执行结果：
+当前时间： 2016-09-25 16:15:16.612006
+(%Y-%m-%d %H:%M:%S %f):  2016-09-25 16:15:16 612006
+(%Y-%m-%d %H:%M:%S %p):  16-09-25 04:15:16 PM
+%a: Sun 
+%A: Sunday 
+%b: Sep 
+%B: September 
+日期时间%c: Sun Sep 25 16:15:16 2016 
+日期%x：09/25/16 
+时间%X：16:15:16 
+今天是这周的第 0 天 
+今天是今年的第 269 天 
+这周是今年的第 39 周
+
+
+
+
+10.5  牛刀小试——时间大杂烩
+#!/usr/bin/python
+#-*- coding:UTF-8 -*-
+
+year = strftime("%Y", localtime())
+mon  = strftime("%m", localtime())
+day  = strftime("%d", localtime())
+hour = strftime("%H", localtime())
+min  = strftime("%M", localtime())
+sec  = strftime("%S", localtime())
+
+def today():
+    '''''
+    get today,date format="YYYY-MM-DD"
+    '''''
+    return date.today()
+
+def todaystr():
+    '''
+    get date string, date format="YYYYMMDD"
+    '''
+    return year + mon + day
+
+def datetime():
+    '''''
+    get datetime,format="YYYY-MM-DD HH:MM:SS"
+    '''
+    return strftime("%Y-%m-%d %H:%M:%S", localtime())
+
+def datetimestr():
+    '''''
+    get datetime string
+    date format="YYYYMMDDHHMMSS"
+    '''
+    return year + mon + day + hour + min + sec
+
+
+def get_day_of_day(n=0):
+    '''''
+    if n>=0,date is larger than today
+    if n<0,date is less than today
+    date format = "YYYY-MM-DD"
+    '''
+    if n < 0:
+        n = abs(n)
+        return date.today()-timedelta(days=n)
+    else:
+        return date.today()+timedelta(days=n)
+
+def get_days_of_month(year, mon):
+    '''''
+    get days of month
+    '''
+    return calendar.monthrange(year, mon)[1]
+
+def get_firstday_of_month(year, mon):
+    '''''
+    get the first day of month
+    date format = "YYYY-MM-DD"
+    '''
+    days = "01"
+    if int(mon) < 10:
+        mon = "0" + str(int(mon))
+    arr = (year, mon, days)
+    return "-".join("%s" %i for i in arr)
+
+def get_lastday_of_month(year, mon):
+    '''''
+    get the last day of month
+    date format = "YYYY-MM-DD"
+    '''
+    days=calendar.monthrange(year, mon)[1]
+    mon = addzero(mon)
+    arr = (year, mon, days)
+    return "-".join("%s" %i for i in arr)
+
+def get_firstday_month(n=0):
+    '''''
+    get the first day of month from today
+    n is how many months
+    '''
+    (y, m, d) = getyearandmonth(n)
+    d = "01"
+    arr = (y, m, d)
+    return "-".join("%s" %i for i in arr)
+
+
+def get_lastday_month(n=0):
+    '''''
+    get the last day of month from today
+    n is how many months
+    '''
+    return "-".join("%s" %i for i in getyearandmonth(n))
+
+def getyearandmonth(n=0):
+    '''''
+    get the year,month,days from today
+    befor or after n months
+    '''
+    thisyear = int(year)
+    thismon = int(mon)
+    totalmon = thismon + n
+    if n >= 0:
+        if totalmon <= 12:
+            days = str(get_days_of_month(thisyear, totalmon))
+            totalmon = addzero(totalmon)
+            return year, totalmon, days
+        else:
+            i = totalmon//12
+            j = totalmon%12
+            if j == 0:
+                i -= 1
+                j = 12
+            thisyear += i
+            days = str(get_days_of_month(thisyear, j))
+            j = addzero(j)
+            return str(thisyear), str(j), days
+    else:
+        if totalmon > 0 and totalmon < 12:
+            days = str(get_days_of_month(thisyear,totalmon))
+            totalmon = addzero(totalmon)
+            return year, totalmon, days
+        else:
+            i = totalmon//12
+            j = totalmon%12
+            if(j==0):
+                i -= 1
+                j = 12
+            thisyear += i
+            days = str(get_days_of_month(thisyear, j))
+            j = addzero(j)
+            return str(thisyear), str(j), days
+
+def addzero(n):
+    '''''
+    add 0 before 0-9
+    return 01-09
+    '''
+    nabs = abs(int(n))
+    if nabs < 10:
+        return "0" + str(nabs)
+    else:
+        return nabs
+
+def get_today_month(n=0):
+    '''''
+    获取当前日期前后N月的日期
+    if n>0, 获取当前日期前N月的日期
+    if n<0, 获取当前日期后N月的日期
+    date format = "YYYY-MM-DD"
+    '''
+    (y, m, d) = getyearandmonth(n)
+    arr = (y, m, d)
+    if int(day) < int(d):
+        arr = (y, m, day)
+    return "-".join("%s" %i for i in arr)
+
+def get_firstday_month(n=0):
+    (y, m, d) = getyearandmonth(n)
+    arr = (y, m, '01')
+    return "-".join("%s" %i for i in arr)
+
+def main():
+    print('today is:', today())
+    print('today is:', todaystr())
+    print('the date time is:', datetime())
+    print('data time is:', datetimestr())
+    print('2 days after today is:', get_day_of_day(2))
+    print('2 days before today is:', get_day_of_day(-2))
+    print('2 months after today is:', get_today_month(2))
+    print('2 months before today is:', get_today_month(-2))
+    print('2 months after this month is:', get_firstday_month(2))
+    print('2 months before this month is:', get_firstday_month(-2))
+
+if __name__=="__main__":
+    main()
+
+执行效果：
+today is: 2016-09-25
+today is: 20160925
+the date time is: 2016-09-25 11:27:14
+data time is: 20160925112714
+2 days after today is: 2016-09-27
+2 days before today is: 2016-09-23
+2 months after today is: 2016-11-25
+2 months before today is: 2016-07-25
+2 months after this month is: 2016-11-01
+2 months before this month is: 2016-07-01

@@ -1,0 +1,307 @@
+14.2.1  SMTP发送邮件
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+import smtplib
+from email.mime.text import MIMEText
+from email.header import Header
+
+sender = 'from@163.com'
+pwd = 'xxxxx' #开通邮箱服务后，设置的客户端授权密码
+receivers = ['to@aliyun.com']  # 接收邮件，可设置为你的邮箱
+
+# 三个参数：第一个为文本内容，第二个 plain 设置文本格式，第三个 utf-8 设置编码
+message = MIMEText('Python 邮件发送测试...', 'plain', 'utf-8')
+message['From'] = Header("邮件测试", 'utf-8')
+message['To'] =  Header("测试", 'utf-8')
+
+subject = 'Python SMTP 邮件测试'
+message['Subject'] = Header(subject, 'utf-8')
+
+try:
+    # 使用非本地服务器，需要建立ssl连接
+    smtpObj = smtplib.SMTP_SSL("smtp.163.com", 465)
+    smtpObj.login(sender, pwd)
+    smtpObj.sendmail(sender, receivers, message.as_string())
+    print ("邮件发送成功")
+except smtplib.SMTPException as e:
+    print ("Error: 无法发送邮件.Case:%s" % e)
+
+	
+	
+	
+14.2.2  发送HTML格式的邮件
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+import smtplib
+from email.mime.text import MIMEText
+from email.header import Header
+
+sender = 'from@163.com'
+pwd = 'xxxxx' #开通邮箱服务后，设置的客户端授权密码
+receivers = ['to@aliyun.com']  # 接收邮件，可设置为你的邮箱
+
+mail_msg = """
+<p>Python 邮件发送测试...</p>
+<p><a href="http://www.runoob.com">这是一个链接</a></p>
+"""
+message = MIMEText(mail_msg, 'html', 'utf-8')
+message['From'] = Header("邮件测试", 'utf-8')
+message['To'] =  Header("测试", 'utf-8')
+
+subject = 'Python SMTP 邮件测试'
+message['Subject'] = Header(subject, 'utf-8')
+
+try:
+    # 使用非本地服务器，需要建立ssl连接
+    smtpObj = smtplib.SMTP_SSL("smtp.163.com", 465)
+    smtpObj.login(sender, pwd)
+    smtpObj.sendmail(sender, receivers, message.as_string())
+    print ("邮件发送成功")
+except smtplib.SMTPException as e:
+    print ("Error: 无法发送邮件.Case:%s" % e)
+
+执行程序输出：
+邮件发送成功
+
+
+
+
+14.2.3  发送带附件的邮件 
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.header import Header
+
+sender = 'from@163.com'
+pwd = 'xxxxx' #开通邮箱服务后，设置的客户端授权密码
+receivers = ['to@aliyun.com']  # 接收邮件，可设置为你的邮箱
+
+#创建一个带附件的实例
+message = MIMEMultipart()
+message['From'] = Header("邮件测试", 'utf-8')
+message['To'] =  Header("测试", 'utf-8')
+subject = 'Python SMTP 邮件测试'
+message['Subject'] = Header(subject, 'utf-8')
+
+#邮件正文内容
+message.attach(MIMEText('这是Python 邮件发送测试……', 'plain', 'utf-8'))
+
+# 构造附件1，传送当前目录下的 test.txt 文件
+att1 = MIMEText(open('test.txt', 'rb').read(), 'base64', 'utf-8')
+att1["Content-Type"] = 'application/octet-stream'
+# 这里的filename可以任意写，写什么名字，邮件中就显示什么名字
+att1["Content-Disposition"] = 'attachment; filename="test.txt"'
+message.attach(att1)
+
+# 构造附件2，传送当前目录下的 runoob.txt 文件
+att2 = MIMEText(open('runoob.txt', 'rb').read(), 'base64', 'utf-8')
+att2["Content-Type"] = 'application/octet-stream'
+att2["Content-Disposition"] = 'attachment; filename="runoob.txt"'
+message.attach(att2)
+
+try:
+    # 使用非本地服务器，需要建立ssl连接
+    smtpObj = smtplib.SMTP_SSL("smtp.163.com", 465)
+    smtpObj.login(sender, pwd)
+    smtpObj.sendmail(sender, receivers, message.as_string())
+    print ("邮件发送成功")
+except smtplib.SMTPException as e:
+    print ("Error: 无法发送邮件.Case:%s" % e)
+
+	
+
+	
+14.2.4  发送图片 
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+import smtplib
+from email.mime.image import MIMEImage
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.header import Header
+
+sender = 'from@163.com'
+pwd = 'xxxxx' #开通邮箱服务后，设置的客户端授权密码
+receivers = ['to@aliyun.com']  # 接收邮件，可设置为你的邮箱
+
+msgRoot = MIMEMultipart('related')
+msgRoot['From'] = Header("邮件测试", 'utf-8')
+msgRoot['To'] =  Header("测试", 'utf-8')
+subject = 'Python SMTP 邮件测试'
+msgRoot['Subject'] = Header(subject, 'utf-8')
+
+msgAlternative = MIMEMultipart('alternative')
+msgRoot.attach(msgAlternative)
+
+mail_msg = """
+<p>Python 邮件发送测试...</p>
+<p><a href="https://www.python.org">Python官方网站</a></p>
+<p>图片演示：</p>
+<p><img src="cid:image1"></p>
+"""
+msgAlternative.attach(MIMEText(mail_msg, 'html', 'utf-8'))
+
+# 指定图片为当前目录
+fp = open('test.png', 'rb')
+msgImage = MIMEImage(fp.read())
+fp.close()
+
+# 定义图片 ID，在 HTML 文本中引用
+msgImage.add_header('Content-ID', '<image1>')
+msgRoot.attach(msgImage)
+
+try:
+    # 使用非本地服务器，需要建立ssl连接
+    smtpObj = smtplib.SMTP_SSL("smtp.163.com", 465)
+    smtpObj.login(sender, pwd)
+    smtpObj.sendmail(sender, receivers, msgRoot.as_string())
+    print ("邮件发送成功")
+except smtplib.SMTPException as e:
+    print ("Error: 无法发送邮件.Case:%s" % e)
+
+	
+	
+	
+14.2.5  同时支持HTML和Plain格式
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+import smtplib
+from email.mime.image import MIMEImage
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.header import Header
+
+sender = '15618942985@163.com'
+pwd = 'lyz111LYZ' #开通邮箱服务后，设置的客户端授权密码
+receivers = ['yuzhouliu@aliyun.com']  # 接收邮件，可设置为你的邮箱
+
+msgRoot = MIMEMultipart('related')
+msgRoot['From'] = Header("邮件测试", 'utf-8')
+msgRoot['To'] =  Header("测试", 'utf-8')
+subject = 'Python SMTP 邮件测试'
+msgRoot['Subject'] = Header(subject, 'utf-8')
+
+msgAlternative = MIMEMultipart('alternative')
+msgRoot.attach(msgAlternative)
+
+msgAlternative.attach(MIMEText('hello', 'plain', 'utf-8'))
+mail_msg = '<html><body><h1>Hello</h1></body></html>'
+msgAlternative.attach(MIMEText(mail_msg, 'html', 'utf-8'))
+
+# 指定图片为当前目录
+fp = open('test.png', 'rb')
+msgImage = MIMEImage(fp.read())
+fp.close()
+
+# 定义图片 ID，在 HTML 文本中引用
+msgImage.add_header('Content-ID', '<image1>')
+msgRoot.attach(msgImage)
+
+try:
+    # 使用非本地服务器，需要建立ssl连接
+    smtpObj = smtplib.SMTP_SSL("smtp.163.com", 465)
+    smtpObj.login(sender, pwd)
+    smtpObj.sendmail(sender, receivers, msgRoot.as_string())
+    print ("邮件发送成功")
+except smtplib.SMTPException as e:
+    print ("Error: 无法发送邮件.Case:%s" % e)
+
+	
+	
+	
+14.2.6  加密SMTP
+smtp_server = 'smtp.gmail.com'
+smtp_port = 587
+server = smtplib.SMTP(smtp_server, smtp_port)
+server.starttls()
+# 剩下的代码和前面的一模一样:
+server.set_debuglevel(1)
+
+
+
+
+14.3.1  POP3下载邮件 
+#! /usr/bin/python
+# -*-coding:UTF-8-*-
+
+import poplib
+from email.parser import Parser
+
+# 输入邮件地址、口令和POP3服务器地址
+email = input('Email: ')
+password = input('Password: ')
+pop3_server = input('POP3 server: ')
+
+# 连接到POP3服务器
+server = poplib.POP3(pop3_server)
+# 可以打开或关闭调试信息
+server.set_debuglevel(1)
+# 可选：输出POP3服务器的欢迎文字
+print(server.getwelcome().decode('utf-8'))
+
+# 身份认证
+server.user(email)
+server.pass_(password)
+
+# stat()返回邮件数量和占用空间
+print('Messages: %s. Size: %s' % server.stat())
+# list()返回所有邮件的编号
+resp, mails, octets = server.list()
+# 可以查看返回的列表，类似[b'1 82923', b'2 2184', ...]
+print(mails)
+
+# 获取最新一封邮件, 注意索引号从1开始
+index = len(mails)
+resp, lines, octets = server.retr(index)
+
+# lines存储了邮件原始文本的每一行
+# 可以获得整个邮件的原始文本
+msg_content = b'\r\n'.join(lines).decode('utf-8')
+# 稍后解析邮件
+msg = Parser().parsestr(msg_content)
+
+# 可以根据邮件索引号直接从服务器删除邮件
+# server.dele(index)
+# 关闭连接
+server.quit()
+
+
+
+
+14.3.2  解析邮件
+# indent用于缩进显示:
+def print_info(msg, indent=0):
+    if indent == 0:
+        for header in ['From', 'To', 'Subject']:
+            value = msg.get(header, '')
+            if value:
+                if header=='Subject':
+                    value = decode_str(value)
+                else:
+                    hdr, addr = parseaddr(value)
+                    name = decode_str(hdr)
+                    value = u'%s <%s>' % (name, addr)
+            print('%s%s: %s' % ('  ' * indent, header, value))
+    if (msg.is_multipart()):
+        parts = msg.get_payload()
+        for n, part in enumerate(parts):
+            print('%spart %s' % ('  ' * indent, n))
+            print('%s--------------------' % ('  ' * indent))
+            print_info(part, indent + 1)
+    else:
+        content_type = msg.get_content_type()
+        if content_type=='text/plain' or content_type=='text/html':
+            content = msg.get_payload(decode=True)
+            charset = guess_charset(msg)
+            if charset:
+                content = content.decode(charset)
+            print('%sText: %s' % ('  ' * indent, content + '...'))
+        else:
+            print('%sAttachment: %s' % ('  ' * indent, content_type))

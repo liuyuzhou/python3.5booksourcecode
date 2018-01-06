@@ -1,0 +1,272 @@
+9.1  什么是异常
+>>> print(a)
+Traceback (most recent call last):
+  File "<pyshell#1>", line 1, in <module>
+    print(a)
+NameError: name 'a' is not defined
+
+
+
+
+9.2  异常处理
+#!/usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+
+def exp_exception(x,y):
+    try:
+        a = x/y
+        print('a=', a)
+        return a
+    except Exception:
+        print('程序出现异常，异常信息：被除数为0')
+
+exp_exception(2, 0)
+
+执行结果：
+程序出现异常，异常信息：被除数为0
+
+
+
+
+9.3  抛出异常
+>>> raise Exception
+Traceback (most recent call last):
+  File "<pyshell#1>", line 1, in <module>
+    raise Exception
+Exception
+>>> raise NameError('This is NameError')
+Traceback (most recent call last):
+  File "<pyshell#0>", line 1, in <module>
+    raise NameError('This is NameError')
+NameError: This is NameError
+
+
+>>> try:
+	raise NameError('This is NameError')
+except NameError:
+	print('An exception happened!') #后面不加raise
+
+An exception happened!#不加raise，输出对应字符就结束
+
+>>> try:
+	raise NameError('This is NameError')
+except NameError:
+	print('An exception happened!')
+	raise   #最后加一个raise
+
+An exception happened!
+Traceback (most recent call last):
+  File "<pyshell#11>", line 2, in <module>
+    raise NameError('This is NameError')
+NameError: This is NameError
+
+
+
+
+9.4  捕捉多个异常
+#!/usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def mult_exception(x,y):
+    try:
+        a = x/y
+        b = name
+    except ZeroDivisionError:
+        print('this is ZeroDivisionError')
+    except NameError:
+        print('this is NameError')
+
+mult_exception(2,0)
+
+执行结果：
+This is ZeroDivisionError
+
+
+
+
+9.5  使用一个块捕捉多个异常
+#!/usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def model_exception(x,y):
+    try:
+        b = name
+        a = x/y
+    except (ZeroDivisionError, NameError, TypeError):
+        print('one of ZeroDivisionError or NameError or TypeError happened')
+
+model_exception(2,0)
+
+执行结果：
+one of ZeroDivisionError or NameError or TypeError happened
+
+
+
+
+9.6  捕捉对象
+#!/usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def model_exception(x,y):
+    try:
+        b = name
+        a = x/y
+    except (ZeroDivisionError, NameError, TypeError) as e:
+        print(e)
+
+model_exception(2,0)
+
+执行结果：
+name 'name' is not defined
+
+
+
+
+9.7  全  捕  捉
+#!/usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def model_exception(x,y):
+    try:
+        b = name
+        a = x/y
+    except (ZeroDivisionError, NameError, TypeError) as e:
+        print(e)
+
+model_exception(2,'') 
+
+执行结果：
+unsupported operand type(s) for /: 'int' and 'str' 
+
+
+#!/usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def model_exception(x,y):
+    try:
+        b = name
+        a = x/y
+    except:
+         print('Error happened')
+
+model_exception(2,'')
+
+执行结果：
+Error happened
+
+
+
+
+9.8  异常中的else
+#!/usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def model_exception(x,y):
+    try:
+        a = x/y
+    except:
+         print('Error happened')
+    else:
+        print('It went as expected')
+
+model_exception(2,1)
+
+执行结果：
+It went as expected
+
+
+
+
+9.9  自定义异常
+#!/usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+class MyError(Exception):
+    def __init__(self):
+        pass
+
+    def __str__(self):
+       return 'this is self define error'
+
+def my_error_test():
+    try:
+        raise MyError()
+    except MyError as e:
+        print('exception info:', e)
+
+my_error_test()
+
+执行结果：
+exception info: this is self define error
+
+
+
+
+9.10  finally子句
+#!/usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def use_finally(x,y):
+    try:
+        a = x/y
+    finally:
+        print('No matter what happened,I will show in front of you')
+
+use_finally(2,0)
+
+执行结果：
+No matter what happened,I will show in front of you
+Traceback (most recent call last):
+  File "D:/python/workspace/exceptiontest.py", line 65, in <module>
+    use_finally(2,0)
+  File "D:/python/workspace/exceptiontest.py", line 61, in use_finally
+    a = x/y
+ZeroDivisionError: division by zero
+
+
+#!/usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+def use_finally(x,y):
+    try:
+        a = x/y
+    except ZeroDivisionError:
+        print('Some bad thing happened:division by zero')
+    finally:
+        print('No matter what happened,I will show in front of you')
+
+use_finally(2,0)
+
+执行结果：
+Some bad thing happened:division by zero
+No matter what happened,I will show in front of you
+
+
+
+
+9.11  异常和函数
+#!/usr/bin/python3
+# -*- coding:UTF-8 -*-
+def division_fun(x, y):
+    return x / int(y)
+
+def exp_fun(x, y):
+    return division_fun(x, y) * 10
+
+def main(x,y):
+    exp_fun(x, y)
+
+main(2,0)
+
+执行结果：
+Traceback (most recent call last):
+  File "D:/python/workspace/exceptiontest.py", line 14, in <module>
+    main(2,0)
+  File "D:/python/workspace/exceptiontest.py", line 12, in main
+    exp_fun(x, y)
+  File "D:/python/workspace/exceptiontest.py", line 9, in exp_fun
+    return division_fun(x, y) * 10
+  File "D:/python/workspace/exceptiontest.py", line 6, in division_fun
+    return x / int(y)
+ZeroDivisionError: division by zero
