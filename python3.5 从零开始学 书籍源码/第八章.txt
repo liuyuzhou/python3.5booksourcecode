@@ -1,4 +1,4 @@
-8.2.1  ÀàµÄ¶¨Òå
+8.2.1  ç±»çš„å®šä¹‰
 class MyClass(object):
     i = 123
     def f(self):
@@ -7,7 +7,7 @@ class MyClass(object):
 
 
 		
-8.2.2  ÀàµÄÊ¹ÓÃ
+8.2.2  ç±»çš„ä½¿ç”¨
 #! /usr/bin/python3
 # -*-coding:UTF-8-*-
 
@@ -17,17 +17,17 @@ class MyClass(object):
         return 'hello world'
 
 use_class = MyClass()
-print('µ÷ÓÃÀàµÄÊôĞÔ£º',use_class.i)
-print('µ÷ÓÃÀàµÄ·½·¨£º',use_class.f())
+print('è°ƒç”¨ç±»çš„å±æ€§ï¼š',use_class.i)
+print('è°ƒç”¨ç±»çš„æ–¹æ³•ï¼š',use_class.f())
 
-Ö´ĞĞ½á¹û£º
-µ÷ÓÃÀàµÄÊôĞÔ£º 123
-µ÷ÓÃÀàµÄ·½·¨£º hello world
-
-
+æ‰§è¡Œç»“æœï¼š
+è°ƒç”¨ç±»çš„å±æ€§ï¼š 123
+è°ƒç”¨ç±»çš„æ–¹æ³•ï¼š hello world
 
 
-8.3.1  ÀàµÄ¹¹Ôì·½·¨
+
+
+8.3.1  ç±»çš„æ„é€ æ–¹æ³•
 #! /usr/bin/python3
 # -*-coding:UTF-8-*-
 
@@ -40,15 +40,15 @@ class MyClass(object):
         return 'hello,'+ self.name
 
 use_class = MyClass('xiaomeng')
-print('µ÷ÓÃÀàµÄÊôĞÔ£º',use_class.i)
-print('µ÷ÓÃÀàµÄ·½·¨£º',use_class.f())
+print('è°ƒç”¨ç±»çš„å±æ€§ï¼š',use_class.i)
+print('è°ƒç”¨ç±»çš„æ–¹æ³•ï¼š',use_class.f())
 
-Ö´ĞĞ½á¹û£º
-µ÷ÓÃÀàµÄÊôĞÔ£º 123
-µ÷ÓÃÀàµÄ·½·¨£º hello,xiaomeng
+æ‰§è¡Œç»“æœï¼š
+è°ƒç”¨ç±»çš„å±æ€§ï¼š 123
+è°ƒç”¨ç±»çš„æ–¹æ³•ï¼š hello,xiaomeng
 
 use_class = MyClass()
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 Traceback (most recent call last):
   File "D:/python/workspace/classdef.py", line 21, in <module>
     use_class = MyClass()
@@ -60,19 +60,19 @@ TypeError: __init__() missing 1 required positional argument: 'name'
 
 class DefaultInit(object):
     def __init__(self):
-        print('ÀàÊµÀı»¯Ê±Ö´ĞĞÎÒ£¬ÎÒÊÇ__init__·½·¨¡£')
+        print('ç±»å®ä¾‹åŒ–æ—¶æ‰§è¡Œæˆ‘ï¼Œæˆ‘æ˜¯__init__æ–¹æ³•ã€‚')
 
     def show(self):
-        print ('ÎÒÊÇÀàÖĞ¶¨ÒåµÄ·½·¨£¬ĞèÒªÍ¨¹ıÊµÀı»¯¶ÔÏóµ÷ÓÃ¡£')
+        print ('æˆ‘æ˜¯ç±»ä¸­å®šä¹‰çš„æ–¹æ³•ï¼Œéœ€è¦é€šè¿‡å®ä¾‹åŒ–å¯¹è±¡è°ƒç”¨ã€‚')
 
 test = DefaultInit()
-print('ÀàÊµÀı»¯½áÊø¡£')
+print('ç±»å®ä¾‹åŒ–ç»“æŸã€‚')
 test.show()
 
-Ö´ĞĞ½á¹û£º
-ÀàÊµÀı»¯Ê±Ö´ĞĞÎÒ£¬ÎÒÊÇ__init__·½·¨¡£
-ÀàÊµÀı»¯½áÊø¡£
-ÎÒÊÇÀàÖĞ¶¨ÒåµÄ·½·¨£¬ĞèÒªÍ¨¹ıÊµÀı»¯¶ÔÏóµ÷ÓÃ¡£
+æ‰§è¡Œç»“æœï¼š
+ç±»å®ä¾‹åŒ–æ—¶æ‰§è¡Œæˆ‘ï¼Œæˆ‘æ˜¯__init__æ–¹æ³•ã€‚
+ç±»å®ä¾‹åŒ–ç»“æŸã€‚
+æˆ‘æ˜¯ç±»ä¸­å®šä¹‰çš„æ–¹æ³•ï¼Œéœ€è¦é€šè¿‡å®ä¾‹åŒ–å¯¹è±¡è°ƒç”¨ã€‚
 
 
 #! /usr/bin/python3
@@ -80,15 +80,15 @@ test.show()
 
 class DefaultInit(object):
     def show(self):
-        print ('ÎÒÊÇÀàÖĞ¶¨ÒåµÄ·½·¨£¬ĞèÒªÍ¨¹ıÊµÀı»¯¶ÔÏóµ÷ÓÃ¡£')
+        print ('æˆ‘æ˜¯ç±»ä¸­å®šä¹‰çš„æ–¹æ³•ï¼Œéœ€è¦é€šè¿‡å®ä¾‹åŒ–å¯¹è±¡è°ƒç”¨ã€‚')
 
 test = DefaultInit()
-print('ÀàÊµÀı»¯½áÊø¡£')
+print('ç±»å®ä¾‹åŒ–ç»“æŸã€‚')
 test.show()
 
-Ö´ĞĞ½á¹û£º
-ÀàÊµÀı»¯½áÊø¡£
-ÎÒÊÇÀàÖĞ¶¨ÒåµÄ·½·¨£¬ĞèÒªÍ¨¹ıÊµÀı»¯¶ÔÏóµ÷ÓÃ¡£
+æ‰§è¡Œç»“æœï¼š
+ç±»å®ä¾‹åŒ–ç»“æŸã€‚
+æˆ‘æ˜¯ç±»ä¸­å®šä¹‰çš„æ–¹æ³•ï¼Œéœ€è¦é€šè¿‡å®ä¾‹åŒ–å¯¹è±¡è°ƒç”¨ã€‚
 
 
 #! /usr/bin/python3
@@ -96,14 +96,14 @@ test.show()
 
 class DefaultInit(object):
     def __init__(self):
-        print('ÎÒÊÇ²»´ø²ÎÊıµÄ__init__·½·¨¡£')
+        print('æˆ‘æ˜¯ä¸å¸¦å‚æ•°çš„__init__æ–¹æ³•ã€‚')
 
 DefaultInit()
-print('ÀàÊµÀı»¯½áÊø¡£')
+print('ç±»å®ä¾‹åŒ–ç»“æŸã€‚')
 
-Ö´ĞĞ½á¹û£º
-ÎÒÊÇ²»´ø²ÎÊıµÄ__init__·½·¨¡£
-ÀàÊµÀı»¯½áÊø¡£
+æ‰§è¡Œç»“æœï¼š
+æˆ‘æ˜¯ä¸å¸¦å‚æ•°çš„__init__æ–¹æ³•ã€‚
+ç±»å®ä¾‹åŒ–ç»“æŸã€‚
 
 
 #! /usr/bin/python3
@@ -111,22 +111,22 @@ print('ÀàÊµÀı»¯½áÊø¡£')
 
 class DefaultInit(object):
     def __init__(self):
-        print('ÎÒÊÇ²»´ø²ÎÊıµÄ__init__·½·¨¡£')
+        print('æˆ‘æ˜¯ä¸å¸¦å‚æ•°çš„__init__æ–¹æ³•ã€‚')
 
     def __init__(self, param):
-        print('ÎÒÊÇ´øÒ»¸ö²ÎÊıµÄ__init__·½·¨£¬²ÎÊıÖµÎª£º',param)
+        print('æˆ‘æ˜¯å¸¦ä¸€ä¸ªå‚æ•°çš„__init__æ–¹æ³•ï¼Œå‚æ•°å€¼ä¸ºï¼š',param)
 
 DefaultInit('hello')
-print('ÀàÊµÀı»¯½áÊø¡£')
+print('ç±»å®ä¾‹åŒ–ç»“æŸã€‚')
 
-Ö´ĞĞ½á¹û£º
-ÎÒÊÇ´øÒ»¸ö²ÎÊıµÄ__init__·½·¨£¬²ÎÊıÖµÎª£º hello
-ÀàÊµÀı»¯½áÊø¡£
+æ‰§è¡Œç»“æœï¼š
+æˆ‘æ˜¯å¸¦ä¸€ä¸ªå‚æ•°çš„__init__æ–¹æ³•ï¼Œå‚æ•°å€¼ä¸ºï¼š hello
+ç±»å®ä¾‹åŒ–ç»“æŸã€‚
 
 
 DefaultInit()
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 Traceback (most recent call last):
   File "D:/python/workspace/classdef.py", line 59, in <module>
     DefaultInit()
@@ -135,7 +135,7 @@ TypeError: __init__() missing 1 required positional argument: 'param'
 
 DefaultInit('hello', 'world')
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 Traceback (most recent call last):
   File "D:/python/workspace/classdef.py", line 61, in <module>
     DefaultInit('hello', 'world')
@@ -147,22 +147,22 @@ TypeError: __init__() takes 2 positional arguments but 3 were given
 
 class DefaultInit(object):
     def __init__(self, param):
-        print('ÎÒÊÇ´øÒ»¸ö²ÎÊıµÄ__init__·½·¨£¬²ÎÊıÖµÎª£º',param)
+        print('æˆ‘æ˜¯å¸¦ä¸€ä¸ªå‚æ•°çš„__init__æ–¹æ³•ï¼Œå‚æ•°å€¼ä¸ºï¼š',param)
 
     def __init__(self):
-        print('ÎÒÊÇ²»´ø²ÎÊıµÄ__init__·½·¨¡£')
+        print('æˆ‘æ˜¯ä¸å¸¦å‚æ•°çš„__init__æ–¹æ³•ã€‚')
 
 DefaultInit()
-print('ÀàÊµÀı»¯½áÊø¡£')
+print('ç±»å®ä¾‹åŒ–ç»“æŸã€‚')
 
-Ö´ĞĞ½á¹û£º
-ÎÒÊÇ²»´ø²ÎÊıµÄ__init__·½·¨¡£
-ÀàÊµÀı»¯½áÊø¡£
+æ‰§è¡Œç»“æœï¼š
+æˆ‘æ˜¯ä¸å¸¦å‚æ•°çš„__init__æ–¹æ³•ã€‚
+ç±»å®ä¾‹åŒ–ç»“æŸã€‚
 
 
 DefaultInit('hello')
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 Traceback (most recent call last):
   File "D:/python/workspace/classdef.py", line 60, in <module>
     DefaultInit('hello')
@@ -171,7 +171,7 @@ TypeError: __init__() takes 1 positional argument but 2 were given
 
 DefaultInit('hello', 'world')
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 Traceback (most recent call last):
   File "D:/python/workspace/classdef.py", line 61, in <module>
     DefaultInit('hello', 'world')
@@ -180,7 +180,7 @@ TypeError: __init__() takes 2 positional arguments but 3 were given
 
 
 
-8.3.2  ÀàµÄ·ÃÎÊÈ¨ÏŞ
+8.3.2  ç±»çš„è®¿é—®æƒé™
 #! /usr/bin/python3
 # -*-coding:UTF-8-*-
 
@@ -190,20 +190,20 @@ class Student(object):
         self.score = score
 
     def info(self):
-        print('Ñ§Éú£º%s£»·ÖÊı: %s' % (self.name, self.score))
+        print('å­¦ç”Ÿï¼š%sï¼›åˆ†æ•°: %s' % (self.name, self.score))
 
 stu = Student('xiaomeng',95)
-print ('ĞŞ¸ÄÇ°·ÖÊı£º', stu.score)
+print ('ä¿®æ”¹å‰åˆ†æ•°ï¼š', stu.score)
 stu.info()
 stu.score=0
-print ('ĞŞ¸Äºó·ÖÊı£º', stu.score)
+print ('ä¿®æ”¹ååˆ†æ•°ï¼š', stu.score)
 stu.info()
 
-Ö´ĞĞ½á¹û£º
-ĞŞ¸ÄÇ°·ÖÊı£º95
-Ñ§Éú£ºxiaomeng£»·ÖÊı: 95
-ĞŞ¸Äºó·ÖÊı£º0
-Ñ§Éú£ºxiaomeng£»·ÖÊı: 0
+æ‰§è¡Œç»“æœï¼š
+ä¿®æ”¹å‰åˆ†æ•°ï¼š95
+å­¦ç”Ÿï¼šxiaomengï¼›åˆ†æ•°: 95
+ä¿®æ”¹ååˆ†æ•°ï¼š0
+å­¦ç”Ÿï¼šxiaomengï¼›åˆ†æ•°: 0
 
 
 #! /usr/bin/python3
@@ -215,19 +215,19 @@ class Student(object):
         self.__score = score
 
     def info(self):
-        print('Ñ§Éú£º%s£»·ÖÊı: %s' % (self.__name, self.__score))
+        print('å­¦ç”Ÿï¼š%sï¼›åˆ†æ•°: %s' % (self.__name, self.__score))
 
 stu = Student('xiaomeng',95)
-print('ĞŞ¸ÄÇ°·ÖÊı£º', stu.__score)
+print('ä¿®æ”¹å‰åˆ†æ•°ï¼š', stu.__score)
 stu.info()
 stu.__score = 0
-print('ĞŞ¸Äºó·ÖÊı£º',stu.__score)
+print('ä¿®æ”¹ååˆ†æ•°ï¼š',stu.__score)
 stu.info()
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 Traceback (most recent call last):
   File "D:/python/workspace/classdef.py", line 81, in <module>
-    print('ĞŞ¸ÄÇ°·ÖÊı£º', stu.__score)
+    print('ä¿®æ”¹å‰åˆ†æ•°ï¼š', stu.__score)
 AttributeError: 'Student' object has no attribute '__score'
 
 
@@ -240,22 +240,22 @@ class Student(object):
         self.__score = score
 
     def info(self):
-        print('Ñ§Éú£º%s£»·ÖÊı: %s' % (self.__name, self.__score))
+        print('å­¦ç”Ÿï¼š%sï¼›åˆ†æ•°: %s' % (self.__name, self.__score))
 
     def get_score(self):
         return self.__score
 
 stu = Student('xiaomeng',95)
-print('ĞŞ¸ÄÇ°·ÖÊı£º', stu.get_score())
+print('ä¿®æ”¹å‰åˆ†æ•°ï¼š', stu.get_score())
 stu.info()
-print('ĞŞ¸Äºó·ÖÊı£º',stu.get_score())
+print('ä¿®æ”¹ååˆ†æ•°ï¼š',stu.get_score())
 stu.info()
 
-Ö´ĞĞ½á¹û£º
-ĞŞ¸ÄÇ°·ÖÊı£º 95
-Ñ§Éú£ºxiaomeng£»·ÖÊı: 95
-ĞŞ¸Äºó·ÖÊı£º 95
-Ñ§Éú£ºxiaomeng£»·ÖÊı: 95
+æ‰§è¡Œç»“æœï¼š
+ä¿®æ”¹å‰åˆ†æ•°ï¼š 95
+å­¦ç”Ÿï¼šxiaomengï¼›åˆ†æ•°: 95
+ä¿®æ”¹ååˆ†æ•°ï¼š 95
+å­¦ç”Ÿï¼šxiaomengï¼›åˆ†æ•°: 95
 
 
 #! /usr/bin/python3
@@ -267,7 +267,7 @@ class Student(object):
         self.__score = score
 
     def info(self):
-        print('Ñ§Éú£º%s£»·ÖÊı: %s' % (self.__name, self.__score))
+        print('å­¦ç”Ÿï¼š%sï¼›åˆ†æ•°: %s' % (self.__name, self.__score))
 
     def get_score(self):
         return self.__score
@@ -276,17 +276,17 @@ class Student(object):
         self.__score = score
 
 stu = Student('xiaomeng',95)
-print('ĞŞ¸ÄÇ°·ÖÊı£º', stu.get_score())
+print('ä¿®æ”¹å‰åˆ†æ•°ï¼š', stu.get_score())
 stu.info()
 stu.set_score(0)
-print('ĞŞ¸Äºó·ÖÊı£º',stu.get_score())
+print('ä¿®æ”¹ååˆ†æ•°ï¼š',stu.get_score())
 stu.info()
 
-Ö´ĞĞ½á¹û£º
-ĞŞ¸ÄÇ°·ÖÊı£º 95
-Ñ§Éú£ºxiaomeng£»·ÖÊı: 95
-ĞŞ¸Äºó·ÖÊı£º 0
-Ñ§Éú£ºxiaomeng£»·ÖÊı: 0
+æ‰§è¡Œç»“æœï¼š
+ä¿®æ”¹å‰åˆ†æ•°ï¼š 95
+å­¦ç”Ÿï¼šxiaomengï¼›åˆ†æ•°: 95
+ä¿®æ”¹ååˆ†æ•°ï¼š 0
+å­¦ç”Ÿï¼šxiaomengï¼›åˆ†æ•°: 0
 
 
 #! /usr/bin/python3
@@ -298,29 +298,30 @@ class Student(object):
         self.__score = score
 
     def info(self):
-        print('Ñ§Éú£º%s£»·ÖÊı: %s' % (self.__name, self.__score))
+        print('å­¦ç”Ÿï¼š%sï¼›åˆ†æ•°: %s' % (self.__name, self.__score))
 
     def get_score(self):
         return self.__score
 
-    if 0<=score<=100:
+    def set_score(self, score):
+    	if 0<=score<=100:
             self.__score = score
         else:
-            print('ÇëÊäÈë0µ½100µÄÊı×Ö¡£')
+            print('è¯·è¾“å…¥0åˆ°100çš„æ•°å­—ã€‚')
 
 stu = Student('xiaomeng',95)
-print('ĞŞ¸ÄÇ°·ÖÊı£º', stu.get_score())
+print('ä¿®æ”¹å‰åˆ†æ•°ï¼š', stu.get_score())
 stu.info()
 stu.set_score(-10)
-print('ĞŞ¸Äºó·ÖÊı£º',stu.get_score())
+print('ä¿®æ”¹ååˆ†æ•°ï¼š',stu.get_score())
 stu.info()
 
-Ö´ĞĞ½á¹û£º
-ĞŞ¸ÄÇ°·ÖÊı£º 95
-Ñ§Éú£ºxiaomeng£»·ÖÊı: 95
-ÇëÊäÈë0µ½100µÄÊı×Ö¡£
-ĞŞ¸Äºó·ÖÊı£º 95
-Ñ§Éú£ºxiaomeng£»·ÖÊı: 95
+æ‰§è¡Œç»“æœï¼š
+ä¿®æ”¹å‰åˆ†æ•°ï¼š 95
+å­¦ç”Ÿï¼šxiaomengï¼›åˆ†æ•°: 95
+è¯·è¾“å…¥0åˆ°100çš„æ•°å­—ã€‚
+ä¿®æ”¹ååˆ†æ•°ï¼š 95
+å­¦ç”Ÿï¼šxiaomengï¼›åˆ†æ•°: 95
 
 
 #! /usr/bin/python3
@@ -330,29 +331,29 @@ class PrivatePublicMethod(object):
     def __init__(self):
         pass
 
-    def __foo(self):          # Ë½ÓĞ·½·¨
-        print('ÕâÊÇË½ÓĞ·½·¨')
+    def __foo(self):          # ç§æœ‰æ–¹æ³•
+        print('è¿™æ˜¯ç§æœ‰æ–¹æ³•')
 
-    def foo(self):            # ¹«¹²·½·¨
-        print('ÕâÊÇ¹«¹²·½·¨')
-        print('¹«¹²·½·¨ÖĞµ÷ÓÃË½ÓĞ·½·¨')
+    def foo(self):            # å…¬å…±æ–¹æ³•
+        print('è¿™æ˜¯å…¬å…±æ–¹æ³•')
+        print('å…¬å…±æ–¹æ³•ä¸­è°ƒç”¨ç§æœ‰æ–¹æ³•')
         self.__foo()
-        print('¹«¹²·½·¨µ÷ÓÃË½ÓĞ·½·¨½áÊø')
+        print('å…¬å…±æ–¹æ³•è°ƒç”¨ç§æœ‰æ–¹æ³•ç»“æŸ')
 
 
 pri_pub = PrivatePublicMethod()
-print('¿ªÊ¼µ÷ÓÃ¹«¹²·½·¨£º')
+print('å¼€å§‹è°ƒç”¨å…¬å…±æ–¹æ³•ï¼š')
 pri_pub.foo()
-print('¿ªÊ¼µ÷ÓÃË½ÓĞ·½·¨£º')
+print('å¼€å§‹è°ƒç”¨ç§æœ‰æ–¹æ³•ï¼š')
 pri_pub.__foo()
 
-Ö´ĞĞ½á¹û£º
-¿ªÊ¼µ÷ÓÃ¹«¹²·½·¨£º
-ÕâÊÇ¹«¹²·½·¨
-¹«¹²·½·¨ÖĞµ÷ÓÃË½ÓĞ·½·¨
-ÕâÊÇË½ÓĞ·½·¨
-¹«¹²·½·¨µ÷ÓÃË½ÓĞ·½·¨½áÊø
-¿ªÊ¼µ÷ÓÃË½ÓĞ·½·¨£º
+æ‰§è¡Œç»“æœï¼š
+å¼€å§‹è°ƒç”¨å…¬å…±æ–¹æ³•ï¼š
+è¿™æ˜¯å…¬å…±æ–¹æ³•
+å…¬å…±æ–¹æ³•ä¸­è°ƒç”¨ç§æœ‰æ–¹æ³•
+è¿™æ˜¯ç§æœ‰æ–¹æ³•
+å…¬å…±æ–¹æ³•è°ƒç”¨ç§æœ‰æ–¹æ³•ç»“æŸ
+å¼€å§‹è°ƒç”¨ç§æœ‰æ–¹æ³•ï¼š
 Traceback (most recent call last):
   File "D:/python/workspace/classdef.py", line 114, in <module>
     pri_pub.__foo()
@@ -361,7 +362,7 @@ AttributeError: 'PrivatePublicMethod' object has no attribute '__foo'
 
 
 
-8.4  ¼Ì    ³Ğ
+8.4  ç»§    æ‰¿
 #! /usr/bin/python3
 # -*- coding:UTF-8 -*-
 
@@ -382,7 +383,7 @@ dog.run()
 cat = Cat()
 cat.run() 
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 Animal is running...
 Animal is running...
 
@@ -398,7 +399,7 @@ dog = Dog()
 dog.run()
 dog.eat()
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 Animal is running...
 Eating ...
 
@@ -413,11 +414,11 @@ class Animal(object):
     def __run(self):
         print('I am a private method.')
 
-Ö´ĞĞÓï¾ä£º
+æ‰§è¡Œè¯­å¥ï¼š
 dog = Dog()
 dog.__run()
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 Traceback (most recent call last):
   File "D:/python/workspace/classextend.py", line 25, in <module>
     dog.__run()
@@ -442,7 +443,7 @@ cat = Cat()
 cat.run()
 cat.jump()
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 Animal is running...
 Animal is jumpping....
 Animal is running...
@@ -451,7 +452,7 @@ Animal is jumpping....
 
 
 
-8.5  ¶à    Ì¬
+8.5  å¤š    æ€
 #! /usr/bin/python3
 # -*- coding:UTF-8 -*-	
 
@@ -463,40 +464,40 @@ class Cat(Animal):
     def run(self):
         print('Cat is running...')
 		
-Ö´ĞĞÓï¾ä£º
+æ‰§è¡Œè¯­å¥ï¼š
 dog = Dog()
-print('ÊµÀı»¯DogÀà')
+print('å®ä¾‹åŒ–Dogç±»')
 dog.run()
 
 cat = Cat()
-print('ÊµÀı»¯CatÀà')
+print('å®ä¾‹åŒ–Catç±»')
 cat.run()
 
-Ö´ĞĞ½á¹û£º
-ÊµÀı»¯DogÀà
+æ‰§è¡Œç»“æœï¼š
+å®ä¾‹åŒ–Dogç±»
 Dog is running...
-ÊµÀı»¯CatÀà
+å®ä¾‹åŒ–Catç±»
 Cat is running...
 
 
-a = list() # aÊÇlistÀàĞÍ
-b = Animal() # bÊÇAnimalÀàĞÍ
-c = Dog() # cÊÇDogÀàĞÍ
-print('aÊÇ·ñÎªlistÀàĞÍ£º', isinstance(a, list))
-print('bÊÇ·ñÎªAnimalÀàĞÍ£º', isinstance(b, Animal))
-print('cÊÇ·ñÎªDogÀàĞÍ£º', isinstance(c, Dog)) 
+a = list() # aæ˜¯listç±»å‹
+b = Animal() # bæ˜¯Animalç±»å‹
+c = Dog() # cæ˜¯Dogç±»å‹
+print('aæ˜¯å¦ä¸ºlistç±»å‹ï¼š', isinstance(a, list))
+print('bæ˜¯å¦ä¸ºAnimalç±»å‹ï¼š', isinstance(b, Animal))
+print('cæ˜¯å¦ä¸ºDogç±»å‹ï¼š', isinstance(c, Dog)) 
 
-Ö´ĞĞ½á¹û£º
-aÊÇ·ñÎªlistÀàĞÍ£º True
-bÊÇ·ñÎªAnimalÀàĞÍ£º True
-cÊÇ·ñÎªDogÀàĞÍ£º True
+æ‰§è¡Œç»“æœï¼š
+aæ˜¯å¦ä¸ºlistç±»å‹ï¼š True
+bæ˜¯å¦ä¸ºAnimalç±»å‹ï¼š True
+cæ˜¯å¦ä¸ºDogç±»å‹ï¼š True
 
-print('cÊÇ·ñÎªDogÀàĞÍ£º', isinstance(c, Dog))
-print('cÊÇ·ñÎªAnimalÀàĞÍ£º',isinstance(c, Animal))
+print('cæ˜¯å¦ä¸ºDogç±»å‹ï¼š', isinstance(c, Dog))
+print('cæ˜¯å¦ä¸ºAnimalç±»å‹ï¼š',isinstance(c, Animal))
 
-Ö´ĞĞ½á¹û£º
-cÊÇ·ñÎªDogÀàĞÍ£º True
-cÊÇ·ñÎªAnimalÀàĞÍ£º True
+æ‰§è¡Œç»“æœï¼š
+cæ˜¯å¦ä¸ºDogç±»å‹ï¼š True
+cæ˜¯å¦ä¸ºAnimalç±»å‹ï¼š True
 
 
 #! /usr/bin/python3
@@ -508,21 +509,21 @@ def run_two_times(animal):
 
 run_two_times(Animal())
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 Animal is running...
 Animal is running...
 
 
 run_two_times(Dog())
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 Dog is running...
 Dog is running...
 
 
 run_two_times(Cat())
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 Cat is running...
 Cat is running...
 
@@ -536,14 +537,14 @@ class Bird(Animal):
 
 run_two_times(Bird())
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 Bird is flying the sky...
 Bird is flying the sky...
 
 
 
 
-8.6  ·â    ×°
+8.6  å°    è£…
 #! /usr/bin/python3
 # -*- coding:UTF-8 -*-
 
@@ -554,11 +555,11 @@ class Student(object):
 
 std = Student('xiaozhi',90)
 def info(std):
-    print('Ñ§Éú£º%s£»·ÖÊı: %s' % (std.name, std.score))
+    print('å­¦ç”Ÿï¼š%sï¼›åˆ†æ•°: %s' % (std.name, std.score))
 info(std)
 
-Ö´ĞĞ½á¹û£º
-Ñ§Éú£ºxiaozhi£»·ÖÊı: 90
+æ‰§è¡Œç»“æœï¼š
+å­¦ç”Ÿï¼šxiaozhiï¼›åˆ†æ•°: 90
 
 
 #! /usr/bin/python3
@@ -570,31 +571,31 @@ class Student0(object):
         self.score = score
 
     def info(self):
-        print('Ñ§Éú£º%s£»·ÖÊı: %s' % (self.name, self.score))
+        print('å­¦ç”Ÿï¼š%sï¼›åˆ†æ•°: %s' % (self.name, self.score))
 
 stu = Student0('xiaomeng',95)
 
-Ö´ĞĞ½á¹û£º
-Ñ§Éú£ºxiaomeng£»·ÖÊı: 95
+æ‰§è¡Œç»“æœï¼š
+å­¦ç”Ÿï¼šxiaomengï¼›åˆ†æ•°: 95
 
 
 
 
-8.7  ¶àÖØ¼Ì³Ğ
+8.7  å¤šé‡ç»§æ‰¿
 #! /usr/bin/python3
 # -*- coding:UTF-8 -*-
 
 class Animal(object):
     pass
 
-# ´óÀà:
+# å¤§ç±»:
 class Mammal(Animal):
     pass
 
 class Bird(Animal):
     pass
 
-# ¸÷ÖÖ¶¯Îï:
+# å„ç§åŠ¨ç‰©:
 class Dog(Mammal):
     pass
 
@@ -628,8 +629,8 @@ class Bat(Mammal, Flyable):
 	
 	
 	
-8.8  »ñÈ¡¶ÔÏóĞÅÏ¢
-1. Ê¹ÓÃtype()º¯Êı
+8.8  è·å–å¯¹è±¡ä¿¡æ¯
+1. ä½¿ç”¨type()å‡½æ•°
 >>> type(123)
 <class 'int'>
 >>> type('abc')
@@ -638,7 +639,7 @@ class Bat(Mammal, Flyable):
 <class 'NoneType'>
 >>> type(abs)
 <class 'builtin_function_or_method'>
->>> type(pri_pub)   #ÉÏÒ»½Ú¶¨ÒåµÄPrivatePublicMethodÀà
+>>> type(pri_pub)   #ä¸Šä¸€èŠ‚å®šä¹‰çš„PrivatePublicMethodç±»
 <class '__main__.PrivatePublicMethod'>
 
 
@@ -669,7 +670,7 @@ True
 
 
 
-2. Ê¹ÓÃisinstance()º¯Êı
+2. ä½¿ç”¨isinstance()å‡½æ•°
 >>> animal = Animal()
 >>> dog = Dog()
 >>> isinstance(dog, Dog)
@@ -689,14 +690,14 @@ True
 
 
 
-3. Ê¹ÓÃdir()
+3. ä½¿ç”¨dir()
 >>> dir('abc')
 ['__add__', '__class__', '__contains__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__getnewargs__', '__gt__', '__hash__', '__init__', '__iter__', '__le__', '__len__', '__lt__', '__mod__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__rmod__', '__rmul__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', 'capitalize', 'casefold', 'center', 'count', 'encode', 'endswith', 'expandtabs', 'find', 'format', 'format_map', 'index', 'isalnum', 'isalpha', 'isdecimal', 'isdigit', 'isidentifier', 'islower', 'isnumeric', 'isprintable', 'isspace', 'istitle', 'isupper', 'join', 'ljust', 'lower', 'lstrip', 'maketrans', 'partition', 'replace', 'rfind', 'rindex', 'rjust', 'rpartition', 'rsplit', 'rstrip', 'split', 'splitlines', 'startswith', 'strip', 'swapcase', 'title', 'translate', 'upper', 'zfill']
 
 
 
 
-8.9  ÀàµÄ×¨ÓĞ·½·¨
+8.9  ç±»çš„ä¸“æœ‰æ–¹æ³•
 1. __str__
 #! /usr/bin/python3
 # -*- coding:UTF-8 -*-
@@ -707,7 +708,7 @@ class Student(object):
 
 print(Student('xiaozhi'))
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 <__main__.Student object at 0x0000000000D64198>
 
 
@@ -719,12 +720,12 @@ class Student(object):
         self.name = name
 
     def __str__(self):
-        return 'Ñ§ÉúÃû³Æ: %s' % self.name
+        return 'å­¦ç”Ÿåç§°: %s' % self.name
 
 print(Student('xiaozhi'))
 
-Ö´ĞĞ½á¹û£º
-Ñ§ÉúÃû³Æ: xiaozhi
+æ‰§è¡Œç»“æœï¼š
+å­¦ç”Ÿåç§°: xiaozhi
 
 >>> s = Student('xiaozhi')
 >>> s
@@ -739,13 +740,13 @@ class Student(object):
         self.name = name
 
     def __str__(self):
-        return 'Ñ§ÉúÃû³Æ: %s' % self.name
+        return 'å­¦ç”Ÿåç§°: %s' % self.name
     __repr__ = __str__
 
-ÔÚ½»»¥Ä£Ê½ÏÂÖ´ĞĞ£º
+åœ¨äº¤äº’æ¨¡å¼ä¸‹æ‰§è¡Œï¼š
 >>> s = Student('xiaozhi')
 >>> s
-Ñ§ÉúÃû³Æ: xiaozhi
+å­¦ç”Ÿåç§°: xiaozhi
 
 
 
@@ -755,16 +756,16 @@ class Student(object):
 
 class Fib(object):
     def __init__(self):
-        self.a, self.b = 0, 1 # ³õÊ¼»¯Á½¸ö¼ÆÊıÆ÷a¡¢b
+        self.a, self.b = 0, 1 # åˆå§‹åŒ–ä¸¤ä¸ªè®¡æ•°å™¨aã€b
 
     def __iter__(self):
-        return self # ÊµÀı±¾Éí¾ÍÊÇµü´ú¶ÔÏó£¬¹Ê·µ»Ø×Ô¼º
+        return self # å®ä¾‹æœ¬èº«å°±æ˜¯è¿­ä»£å¯¹è±¡ï¼Œæ•…è¿”å›è‡ªå·±
 
     def __next__(self):
-        self.a, self.b = self.b, self.a + self.b # ¼ÆËãÏÂÒ»¸öÖµ
-        if self.a > 100000: # ÍË³öÑ­»·µÄÌõ¼ş
+        self.a, self.b = self.b, self.a + self.b # è®¡ç®—ä¸‹ä¸€ä¸ªå€¼
+        if self.a > 100000: # é€€å‡ºå¾ªç¯çš„æ¡ä»¶
             raise StopIteration();
-        return self.a # ·µ»ØÏÂÒ»¸öÖµ
+        return self.a # è¿”å›ä¸‹ä¸€ä¸ªå€¼
 
 		
 		
@@ -832,12 +833,12 @@ class Student(object):
         self.name = name
 
     def __call__(self):
-        print('Ãû³Æ£º%s' % self.name)
+        print('åç§°ï¼š%s' % self.name)
 
 		
 >>> stu = Student('xiaomeng')
 >>> stu()
-Ãû³Æ£ºxiaomeng
+åç§°ï¼šxiaomeng
 
 
 >>> callable(Student('xiaozhi'))
@@ -854,7 +855,7 @@ False
 
 
 
-8.10  Å£µ¶Ğ¡ÊÔ¡ª¡ª³öĞĞ½¨Òé
+8.10  ç‰›åˆ€å°è¯•â€”â€”å‡ºè¡Œå»ºè®®
 #! /usr/bin/python3
 # -*- coding:UTF-8 -*-
 
@@ -904,9 +905,9 @@ class OutAdvice(WeatherSearch):
             print('The weather is beyond my scope,I can not give you any advice')
 
 		
-ÈçÏÂµ÷ÓÃ£º
+å¦‚ä¸‹è°ƒç”¨ï¼š
 check = OutAdvice('daytime')
 check.out_advice()
 
-½á¹û£º
+ç»“æœï¼š
 The weather is good,suitable for use bike.
