@@ -1,36 +1,36 @@
-11.2  reÄ£¿é
+11.2  reæ¨¡å—
 #! /usr/bin/python3
 # -*- coding:UTF-8 -*-
 
 import re
 
-print(re.match('hello', 'hello world').span())  # ÔÚÆğÊ¼Î»ÖÃÆ¥Åä
-print(re.match('world', 'hello world'))         # ²»ÔÚÆğÊ¼Î»ÖÃÆ¥Åä
+print(re.match('hello', 'hello world').span())  # åœ¨èµ·å§‹ä½ç½®åŒ¹é…
+print(re.match('world', 'hello world'))         # ä¸åœ¨èµ·å§‹ä½ç½®åŒ¹é…
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 (0, 5)
 None
 
 
 
 
-11.2.2  re.search·½·¨
+11.2.2  re.searchæ–¹æ³•
 #! /usr/bin/python3
 # -*- coding:UTF-8 -*-
 
 import re
 
-print(re.search('hello', 'hello world').span())  # ÔÚÆğÊ¼Î»ÖÃÆ¥Åä
-print(re.search('world', 'hello world').span())  # ²»ÔÚÆğÊ¼Î»ÖÃÆ¥Åä
+print(re.search('hello', 'hello world').span())  # åœ¨èµ·å§‹ä½ç½®åŒ¹é…
+print(re.search('world', 'hello world').span())  # ä¸åœ¨èµ·å§‹ä½ç½®åŒ¹é…
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 (0, 5)
 (6, 11)
 
 
 
 
-11.2.3  re.matchÓëre.searchµÄÇø±ğ
+11.2.3  re.matchä¸re.searchçš„åŒºåˆ«
 #! /usr/bin/python3
 # -*- coding:UTF-8 -*-
 
@@ -50,38 +50,41 @@ if matchObj:
 else:
    print("No match string!!")
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 No match string!!
 use search,the match string is:  dogs
 
 
 
 
-11.3  Ì°À·Ä£Ê½ºÍ·ÇÌ°À·Ä£Ê½
+11.3  è´ªå©ªæ¨¡å¼å’Œéè´ªå©ªæ¨¡å¼
 #! /usr/bin/python3
 # -*- coding:UTF-8 -*-
+import re
 
 print(re.match(r'^(\d+)(0*)$', '102300').groups())
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 ('102300', '')
 
 
 #! /usr/bin/python3
 # -*- coding:UTF-8 -*-
+import re
 
 print(re.match(r'^(\d+?)(0*)$', '102300').groups())
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 ('1023', '00')
 
 
 
 
 
-11.4  Ìæ    »»
+11.4  æ›¿    æ¢
 #! /usr/bin/python3
 # -*- coding:UTF-8 -*-
+import re
 
 pt = re.compile(r'(w+) (w+)')
 greeting = 'i say, hello world!'
@@ -94,21 +97,22 @@ def func(m):
 
 print(pt.sub(func, greeting))
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 i say, hello world!
 i say, hello world!
 
 
 
 
-11.5  ±à    Òë
+11.5  ç¼–    è¯‘
 #! /usr/bin/python3
 # -*- coding:UTF-8 -*-
+import re
 
 re_telephone = re.compile(r'^(\d{3})-(\d{3,8})$')
 print(re_telephone.match('010-12345').groups())
 print(re_telephone.match('010-8086').groups())
 
-Ö´ĞĞ½á¹û£º
+æ‰§è¡Œç»“æœï¼š
 ('010', '12345')
 ('010', '8086')
