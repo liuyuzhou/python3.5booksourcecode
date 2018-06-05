@@ -19,14 +19,11 @@ CREATE TABLE `douban_comment` (
 
 
 def insert_into_mysql(self):
-          db = pymysql.connect("localhost", "root", "root", "test")
-          # 使用 cursor() 方法创建一个游标对象 cursor
-          cursor = db.cursor()
-          insert_str = "insert into douban_comment(movieRank,movieName," \
-                       "movieForName,movieAlias,directorName,showYear," \
-                       "makeCounty,movieType,movieScore,scoreNum,shortFilm) " \
-                       " values('%s','%s','%s','%s','%s','%s','%s','%s'," \
-                       "'%s','%s','%s')"
+          insert_str = 'insert into douban_comment(movieRank,movieName,' \
+                       'movieForName,movieAlias,directorName,showYear,' \
+                       'makeCounty,movieType,movieScore,scoreNum,shortFilm) ' \
+                       ' values("%s","%s","%s","%s","%s","%s","%s","%s",' \
+                       '"%s","%s","%s")'
           try:
               for movie in self.movie_list:
                   movie_4 = movie[4]
@@ -35,8 +32,8 @@ def insert_into_mysql(self):
                   insert_sql = insert_str % (movie[0], movie[1], movie[2], movie[3],
                                              movie_4, movie[5], movie[6], movie[7],
                                              movie[8], movie[9], movie[10])
-                  # update_record(insert_sql)
-                  cursor.execute(insert_sql)
+                  update_record(insert_sql)
+                  # cursor.execute(insert_sql)
           except Exception as e:
               print(e)
 
@@ -109,9 +106,6 @@ class MovieTop(object):
 
 
       def insert_into_mysql(self):
-          db = pymysql.connect("localhost", "root", "root", "test")
-          # 使用 cursor() 方法创建一个游标对象 cursor
-          cursor = db.cursor()
           insert_str = "insert into douban_comment(movieRank,movieName," \
                        "movieForName,movieAlias,directorName,showYear," \
                        "makeCounty,movieType,movieScore,scoreNum,shortFilm) " \
@@ -125,8 +119,7 @@ class MovieTop(object):
                   insert_sql = insert_str % (movie[0], movie[1], movie[2], movie[3],
                                              movie_4, movie[5], movie[6], movie[7],
                                              movie[8], movie[9], movie[10])
-                  # update_record(insert_sql)
-                  cursor.execute(insert_sql)
+                  update_record(insert_sql)
           except Exception as e:
               print(e)
 
