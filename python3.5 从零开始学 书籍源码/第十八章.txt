@@ -1,26 +1,26 @@
-18.1  Êı¾İ³Ö¾Ã»¯
-±í´´½¨Óï¾äºÍ±í½á¹¹£º
-CREATE TABLE 'douban_comment' (
-  'Id' int(11) NOT NULL AUTO_INCREMENT,
-  'movieRank' varchar(20) DEFAULT NULL,
-  'movieName' varchar(50) DEFAULT NULL,
-  'movieForName' varchar(50) DEFAULT NULL,
-  'movieAlias' varchar(100) DEFAULT NULL,
-  'directorName' varchar(50) DEFAULT NULL,
-  'showYear' varchar(50) DEFAULT NULL,
-  'makeCounty' varchar(100) DEFAULT NULL,
-  'movieType' varchar(100) DEFAULT NULL,
-  'movieScore' varchar(10) DEFAULT NULL,
-  'scoreNum' varchar(20) DEFAULT NULL,
-  'shortFilm' varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=725 DEFAULT CHARSET=utf8;
+18.1  æ•°æ®æŒä¹…åŒ–
+è¡¨åˆ›å»ºè¯­å¥å’Œè¡¨ç»“æ„ï¼š
+CREATE TABLE `douban_comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `movieRank` varchar(20) DEFAULT NULL,
+  `movieName` varchar(50) DEFAULT NULL,
+  `movieForName` varchar(50) DEFAULT NULL,
+  `movieAlias` varchar(100) DEFAULT NULL,
+  `directorName` varchar(50) DEFAULT NULL,
+  `showYear` varchar(50) DEFAULT NULL,
+  `makeCounty` varchar(100) DEFAULT NULL,
+  `movieType` varchar(100) DEFAULT NULL,
+  `movieScore` varchar(10) DEFAULT NULL,
+  `scoreNum` varchar(20) DEFAULT NULL,
+  `shortFilm` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 
 def insert_into_mysql(self):
           db = pymysql.connect("localhost", "root", "root", "test")
-          # Ê¹ÓÃ cursor() ·½·¨´´½¨Ò»¸öÓÎ±ê¶ÔÏó cursor
+          # ä½¿ç”¨ cursor() æ–¹æ³•åˆ›å»ºä¸€ä¸ªæ¸¸æ ‡å¯¹è±¡ cursor
           cursor = db.cursor()
           insert_str = "insert into douban_comment(movieRank,movieName," \
                        "movieForName,movieAlias,directorName,showYear," \
@@ -62,12 +62,12 @@ class MovieTop(object):
              response = request.urlopen(req)
              page = response.read().decode('utf-8')
              page_num = (self.start + 25)//25
-             print('ÕıÔÚ×¥È¡µÚ' + str(page_num) + 'Ò³Êı¾İ...' )
+             print('æ­£åœ¨æŠ“å–ç¬¬' + str(page_num) + 'é¡µæ•°æ®...' )
              self.start += 25
              return page
           except request.URLError as e:
              if hasattr(e, 'reason'):
-                 print('×¥È¡Ê§°Ü£¬Ê§°ÜÔ­Òò£º', e.reason)
+                 print('æŠ“å–å¤±è´¥ï¼Œå¤±è´¥åŸå› ï¼š', e.reason)
 
       def get_movie_info(self):
           pattern = re.compile(u'<div.*?class="item">.*?'
@@ -78,13 +78,13 @@ class MovieTop(object):
                               + u'</span>.*?<span.*?class="title">(.*?)</span>.*?'
                               + u'<span.*?class="other">(.*?)</span>.*?</a>.*?'
                               + u'<div.*?class="bd">.*?<p.*?class="">.*?'
-                              + u'µ¼Ñİ: (.*?)&nbsp;&nbsp;&nbsp;.*?<br>'
+                              + u'å¯¼æ¼”: (.*?)&nbsp;&nbsp;&nbsp;.*?<br>'
                               + u'(.*?)&nbsp;/&nbsp;(.*?)&nbsp;/&nbsp;'
                               + u'(.*?)</p>.*?<div.*?class="star">.*?'
                               + u'<span.*?'
                               + u'class="rating_num".*?property="v:average">'
                               + u'(.*?)</span>.*?'
-                              + u'.*?<span>(.*?)ÈËÆÀ¼Û</span>.*?'
+                              + u'.*?<span>(.*?)äººè¯„ä»·</span>.*?'
                               + u'<p.*?class="quote">.*?'
                               + u'<span.*?class="inq">(.*?)'
                               + u'</span>.*?</p>', re.S)
@@ -107,7 +107,7 @@ class MovieTop(object):
 
       def insert_into_mysql(self):
           db = pymysql.connect("localhost", "root", "root", "test")
-          # Ê¹ÓÃ cursor() ·½·¨´´½¨Ò»¸öÓÎ±ê¶ÔÏó cursor
+          # ä½¿ç”¨ cursor() æ–¹æ³•åˆ›å»ºä¸€ä¸ªæ¸¸æ ‡å¯¹è±¡ cursor
           cursor = db.cursor()
           insert_str = "insert into douban_comment(movieRank,movieName," \
                        "movieForName,movieAlias,directorName,showYear," \
@@ -125,10 +125,10 @@ class MovieTop(object):
               print(e)
 
       def main(self):
-         print('¿ªÊ¼´Ó¶¹°êµçÓ°×¥È¡Êı¾İ........')
+         print('å¼€å§‹ä»è±†ç“£ç”µå½±æŠ“å–æ•°æ®........')
          self.get_movie_info()
          self.insert_into_mysql()
-         print('Êı¾İ×¥È¡Íê±Ï...')
+         print('æ•°æ®æŠ“å–å®Œæ¯•...')
 
 dou_ban_spider = MovieTop()
 dou_ban_spider.main()
@@ -136,8 +136,8 @@ dou_ban_spider.main()
 
 
 
-18.2.1  Êı¾İ¿â²Ù×÷Ä£¿é»¯
-ÎÄ¼şdb.iniÅäÖÃ£º
+18.2.1  æ•°æ®åº“æ“ä½œæ¨¡å—åŒ–
+æ–‡ä»¶db.inié…ç½®ï¼š
 [MySQL]
 host=localhost
 user=root
@@ -150,19 +150,19 @@ charset=UTF8
 #!/usr/bin/env python3
 # -*- coding:UTF-8 -*-
 #
-# ¶¨Òå±ØĞëµÄÃû³ÆÔª×é
+# å®šä¹‰å¿…é¡»çš„åç§°å…ƒç»„
 
 import collections
 
 
-# ÓÃÓÚMySQL µÄ·şÎñĞÅÏ¢
+# ç”¨äºMySQL çš„æœåŠ¡ä¿¡æ¯
 MySQL = collections.namedtuple('MySQL', ['host', 'user', 'password', 'port', 'charset', 'schema'])
 
 
 #!/usr/bin/env python3
 # -*- coding:UTF-8 -*-
 #
-# ¶ÁÈ¡ÅäÖÃÎÄ¼ş
+# è¯»å–é…ç½®æ–‡ä»¶
 
 from common.named_tuples import MySQL
 
@@ -170,7 +170,7 @@ import configparser
 
 
 class ConfigReader:
-    #pathÎªÅäÖÃÎÄ¼şµÄÍêÕûÂ·¾¶£¬ÓÉµ÷ÓÃÕß´«Èë
+    #pathä¸ºé…ç½®æ–‡ä»¶çš„å®Œæ•´è·¯å¾„ï¼Œç”±è°ƒç”¨è€…ä¼ å…¥
     def __init__(self, path):
         if path is None or len(path) < 1:
             raise ValueError('The config ini file path required.')
@@ -179,7 +179,7 @@ class ConfigReader:
             self.conf.read(path)
 
 
-    # È¡µÃMySQL·şÎñÁ¬½ÓĞÅÏ¢£¬·µ»ØMySQL(host,user,password,port,charset,schema)
+    # å–å¾—MySQLæœåŠ¡è¿æ¥ä¿¡æ¯ï¼Œè¿”å›MySQL(host,user,password,port,charset,schema)
     def get_mysql_info(self):
         host = self.conf.get('MySQL', 'host')
         user = self.conf.get('MySQL', 'user')
@@ -195,7 +195,7 @@ class ConfigReader:
 #!/usr/bin/env python3
 # -*- coding:UTF-8 -*-
 #
-#  MySQL ²Ù×÷º¯Êı¼¯
+#  MySQL æ“ä½œå‡½æ•°é›†
 
 from common.conf_utils import ConfigReader
 
@@ -203,10 +203,10 @@ import pymysql
 import datetime
 
 
-# MySQL »ñÈ¡Êı¾İ¿âÁ¬½Ó
+# MySQL è·å–æ•°æ®åº“è¿æ¥
 def connect_pool():
 
-    cr = ConfigReader('ÅäÖÃÎÄ¼ş¾ø¶ÔÂ·¾¶/db.ini')
+    cr = ConfigReader('é…ç½®æ–‡ä»¶ç»å¯¹è·¯å¾„/db.ini')
     conf = cr.get_mysql_info()
 
     return pymysql.connections.Connection(host=conf.host,
@@ -217,7 +217,7 @@ def connect_pool():
                                           charset=conf.charset)
 
 
-# MySQL Í³Ò»Êı¾İ²éÑ¯·½·¨
+# MySQL ç»Ÿä¸€æ•°æ®æŸ¥è¯¢æ–¹æ³•
 def query_table(sql):
     print('Mysql client query start...')
     start = datetime.datetime.now()
@@ -247,7 +247,7 @@ def query_table(sql):
     return result
 
 
-# MySQL Í³Ò»Êı¾İ¸üĞÂ·½·¨
+# MySQL ç»Ÿä¸€æ•°æ®æ›´æ–°æ–¹æ³•
 def update_record(sql):
     result = []
     try:
@@ -268,15 +268,15 @@ def update_record(sql):
 	
 	
 	
-18.2.2  ÎÄ¼şÉú³ÉÄ£¿é»¯
+18.2.2  æ–‡ä»¶ç”Ÿæˆæ¨¡å—åŒ–
 #!/usr/bin/env python3
 # -*- coding:UTF-8 -*-
-# CSVÎÄ¼ş²Ù×÷¹¤¾ß
+# CSVæ–‡ä»¶æ“ä½œå·¥å…·
 
 import csv
 
 
-# ½«Êı¾İĞ´ÈëCSVÎÄ¼ş
+# å°†æ•°æ®å†™å…¥CSVæ–‡ä»¶
 def write_csv_file(path, head, data):
     try:
         with open(path, 'w', newline='') as csv_file:
@@ -292,17 +292,17 @@ def write_csv_file(path, head, data):
 		
 		
 		
-18.2.3  ÓÊ¼ş·¢ËÍÄ£¿é»¯
+18.2.3  é‚®ä»¶å‘é€æ¨¡å—åŒ–
 #!/usr/bin/env python3
 # -*- coding:UTF-8 -*-
 #
-# ÎÄ¼şÑ¹Ëõ¹¤¾ß
+# æ–‡ä»¶å‹ç¼©å·¥å…·
 
 import tarfile
 import zipfile
 
 
-# Ê¹ÓÃzip·½Ê½Ñ¹ËõÎÄ¼ş£¬¶àÓÃÓÚWindowsÏµÍ³
+# ä½¿ç”¨zipæ–¹å¼å‹ç¼©æ–‡ä»¶ï¼Œå¤šç”¨äºWindowsç³»ç»Ÿ
 def zip_compress(source):
     source = source.decode('UTF-8')
     target = source[0:source.rindex(".")] + '.zip'
@@ -318,7 +318,7 @@ def zip_compress(source):
     return target
 
 
-# Ê¹ÓÃtar·½Ê½Ñ¹ËõÎÄ¼ş£¬¶àÓÃÓÚLinuxÏµÍ³
+# ä½¿ç”¨taræ–¹å¼å‹ç¼©æ–‡ä»¶ï¼Œå¤šç”¨äºLinuxç³»ç»Ÿ
 def tar_compress(source):
     source = source.decode('UTF-8')
     target = source[0:source.rindex('.')] + '.tar.gz'
@@ -333,7 +333,7 @@ def tar_compress(source):
     return target
 
 
-# ÎÄ¼şÑ¹ËõÂÊ¼ÆËã
+# æ–‡ä»¶å‹ç¼©ç‡è®¡ç®—
 def compress_rate(source_size, target_size):
     return round((source_size - target_size) / float(source_size), 4)
 
@@ -341,8 +341,8 @@ def compress_rate(source_size, target_size):
 #!/usr/bin/env python3
 # -*- coding:UTF-8 -*-
 #
-# ÓÊ¼ş·şÎñ¹¤¾ß, ÄÜ·¢ËÍ´ø¸½¼şµÄÓÊ¼ş
-# ÓÊ¼ş·¢ËÍ³É¹¦ºó£¬¸ù¾İĞèÒª¿ÉÒÔÉ¾³ı¸½¼şÔ­¼ş
+# é‚®ä»¶æœåŠ¡å·¥å…·, èƒ½å‘é€å¸¦é™„ä»¶çš„é‚®ä»¶
+# é‚®ä»¶å‘é€æˆåŠŸåï¼Œæ ¹æ®éœ€è¦å¯ä»¥åˆ é™¤é™„ä»¶åŸä»¶
 
 import datetime
 import os
@@ -359,18 +359,18 @@ from email import utils
 from common.compress_utils import zip_compress, compress_rate
 
 
-# ·¢ËÍÓÊ¼şº¯Êı
-# to: ÊÕ¼şÈËÁĞ±í
-# cc: ³­ËÍÈËÁĞ±í
-# subject: ÓÊ¼şÖ÷Ìâ
-# content: ÓÊ¼şÄÚÈİ
-# attachments: ÓÊ¼ş¸½¼şÁĞ±í
-# delete: ÓÊ¼ş·¢ËÍ³É¹¦ºóÊÇ·ñÉ¾³ı¸½¼şÔ­¼ş
+# å‘é€é‚®ä»¶å‡½æ•°
+# to: æ”¶ä»¶äººåˆ—è¡¨
+# cc: æŠ„é€äººåˆ—è¡¨
+# subject: é‚®ä»¶ä¸»é¢˜
+# content: é‚®ä»¶å†…å®¹
+# attachments: é‚®ä»¶é™„ä»¶åˆ—è¡¨
+# delete: é‚®ä»¶å‘é€æˆåŠŸåæ˜¯å¦åˆ é™¤é™„ä»¶åŸä»¶
 def send(to, cc, subject, content, attachments, delete):
     user = "email service address"
     password = "xxxxxx"
 
-    # ×¼±¸ÓÊ¼ş·şÎñ
+    # å‡†å¤‡é‚®ä»¶æœåŠ¡
     server = smtplib.SMTP_SSL("smtp.163.com", 465)
     smtplib.SMTP
     server.login(user, password)
@@ -388,13 +388,13 @@ def send(to, cc, subject, content, attachments, delete):
     content_type = 'application/octet-stream'
     maintype, subtype = content_type.split('/', 1)
 
-    # ¸½¼ş×¼±¸
+    # é™„ä»¶å‡†å¤‡
     compress_files = []
     if len(attachments) > 0:
         for path in attachments:
             path = compress_attachment(path)
             """
-                Èç¹ûÓĞÑ¹ËõÎÄ¼ş£¬¾ÍÌí¼Óµ½É¾³ıÁĞ±íÖĞ
+                å¦‚æœæœ‰å‹ç¼©æ–‡ä»¶ï¼Œå°±æ·»åŠ åˆ°åˆ é™¤åˆ—è¡¨ä¸­
             """
             if path.__contains__('.csv') is False:
                 compress_files.append(path)
@@ -418,7 +418,7 @@ def send(to, cc, subject, content, attachments, delete):
                  (end - start).seconds, ",".join(to+cc)))
 
         """
-            Èç¹ûÉ¾³ı±êÊ¶ÎªTrue£¬ÇÒ¸½¼ş²»Îª¿Õ£¬ÓÊ¼ş·¢ËÍ³É¹¦ºóÉ¾³ı¸½¼ş
+            å¦‚æœåˆ é™¤æ ‡è¯†ä¸ºTrueï¼Œä¸”é™„ä»¶ä¸ä¸ºç©ºï¼Œé‚®ä»¶å‘é€æˆåŠŸååˆ é™¤é™„ä»¶
         """
         try:
             attachments.extend(compress_files)
@@ -429,7 +429,7 @@ def send(to, cc, subject, content, attachments, delete):
             print('Delete attachments were failed. Case: %s' % e)
 
     except Exception as e:
-        raise RuntimeError("Send email[%s] failed. Case:¡¡%s" % (subject, e))
+        raise RuntimeError("Send email[%s] failed. Case:ã€€%s" % (subject, e))
     finally:
         server.quit()
 
@@ -438,7 +438,7 @@ def compress_attachment(attachment):
 
     length = os.path.getsize(attachment)
     """
-        Èç¹û¸½¼ş´óÓÚµÈÓÚ2MB£¬¾ÍÑ¹Ëõ¸½¼ş
+        å¦‚æœé™„ä»¶å¤§äºç­‰äº2MBï¼Œå°±å‹ç¼©é™„ä»¶
     """
     if length > 4194304:
         attachment = zip_compress(attachment)
@@ -452,14 +452,14 @@ def compress_attachment(attachment):
 	
 	
 	
-18.3  Êı¾İ·ÖÎöµÄÊµÏÖ
-Çé¾°Ò»£ºÊı¾İÓªÏú
+18.3  æ•°æ®åˆ†æçš„å®ç°
+æƒ…æ™¯ä¸€ï¼šæ•°æ®è¥é”€
 #!/usr/bin/env python3
 # -*- coding:UTF-8 -*-
 # coding=utf8
 
-from common.mysql_client import *  #ÒıÈëÊı¾İ¿â²Ù×÷Ä£¿é
-from common.csv_utils import *      #ÒıÈëCSVÎÄ¼ş´¦ÀíÄ£¿é
+from common.mysql_client import *  #å¼•å…¥æ•°æ®åº“æ“ä½œæ¨¡å—
+from common.csv_utils import *      #å¼•å…¥CSVæ–‡ä»¶å¤„ç†æ¨¡å—
 
 score_range_csv = "d:/score-range.csv"
 
@@ -472,7 +472,7 @@ def movie_score_range():
 
 
 def write_into_csv():
-    head = ['µçÓ°Ãû³Æ', 'ÉÏÓ³Äê·İ', 'ÖÆ×÷¹ú¼Ò', 'µçÓ°Àà±ğ', 'µçÓ°ÆÀ·Ö']
+    head = ['ç”µå½±åç§°', 'ä¸Šæ˜ å¹´ä»½', 'åˆ¶ä½œå›½å®¶', 'ç”µå½±ç±»åˆ«', 'ç”µå½±è¯„åˆ†']
     score_range_record = movie_score_range()
     out_put_data = []
     for row in score_range_record:
@@ -494,7 +494,7 @@ if __name__ == "__main__":
 
 from common.mysql_client import *
 from common.csv_utils import *
-from common.email_server import *  #ÒıÈëÓÊ¼ş·şÎñÄ£¿é
+from common.email_server import *  #å¼•å…¥é‚®ä»¶æœåŠ¡æ¨¡å—
 
 score_range_csv = "d:/score-range.csv"
 
@@ -507,7 +507,7 @@ def movie_score_range():
 
 
 def write_into_csv():
-    head = ['µçÓ°Ãû³Æ', 'ÉÏÓ³Äê·İ', 'ÖÆ×÷¹ú¼Ò', 'µçÓ°Àà±ğ', 'µçÓ°ÆÀ·Ö']
+    head = ['ç”µå½±åç§°', 'ä¸Šæ˜ å¹´ä»½', 'åˆ¶ä½œå›½å®¶', 'ç”µå½±ç±»åˆ«', 'ç”µå½±è¯„åˆ†']
     score_range_record = movie_score_range()
     out_put_data = []
     for row in score_range_record:
@@ -521,8 +521,8 @@ def main():
 
     to = ['email@aliyun.com']
     cc = ['email@aliyun.com']
-    subject = "ÆÀ·ÖÅÅĞĞ°ñ"
-    content = "ÆÀ·ÖÅÅĞĞ°ñÊı¾İ"
+    subject = "è¯„åˆ†æ’è¡Œæ¦œ"
+    content = "è¯„åˆ†æ’è¡Œæ¦œæ•°æ®"
     send(to, cc, subject, content, [score_range_csv], True)
 
 if __name__ == "__main__":
@@ -530,7 +530,7 @@ if __name__ == "__main__":
 
 	
 	
-Çé¾°¶ş£º»ñÈ¡ÇøÓòĞÔÊı¾İ
+æƒ…æ™¯äºŒï¼šè·å–åŒºåŸŸæ€§æ•°æ®
 #!/usr/bin/env python3
 # -*- coding:UTF-8 -*-
 # coding=utf8
@@ -549,7 +549,7 @@ def make_county_top10():
     return query_result
 
 def write_into_csv():
-    head = ['ÖÆ×÷¹ú¼Ò', 'ÖÆ×÷µçÓ°Êı']
+    head = ['åˆ¶ä½œå›½å®¶', 'åˆ¶ä½œç”µå½±æ•°']
     score_range_record = make_county_top10()
     out_put_data = []
     for row in score_range_record:
