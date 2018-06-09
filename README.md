@@ -70,19 +70,21 @@ p92 第三行最后一句有错误
 intab='adfas'  更改为 intab='adefs'
 
 
-P103   5.3.3 fromkeys()方法， 返回结果为字典，而非列表。 需要把列表二字更改为字典。
+11、P103   5.3.3 fromkeys()方法， 返回结果为字典，而非列表。 需要把列表二字更改为字典。
 
 
-11、p135
+12、p135
 需将第一段代码中的第六行  num -= -1 更改为num -= 1
 
-P157    7.6.1 局部变量 代码块 def func() 中， 最后两行代码未缩进。
+
+13、P157    7.6.1 局部变量 代码块 def func() 中， 最后两行代码未缩进。
 需更改为：
 def func():
     x = 100
     print(x)
 
-12、p162  示例代码中
+
+14、p162  示例代码中
 justreturn函数的return语句丢失，应更改为如下：
 def justreturn():
     print('justreturn函数只写return，不返回具体内容')
@@ -97,7 +99,7 @@ print('函数returnval调用结果：',returnval())
 需要加上中间那句才能得到打印的结果。
 
 
-13、书中168页的尾递归函数一般只能递归fact(997)，递归深度超过997后，应该会报如下错误：
+15、书中168页的尾递归函数一般只能递归fact(997)，递归深度超过997后，应该会报如下错误：
 RecursionError: maximum recursion depth exceeded in comparison
 
 要能测试fact(1000)
@@ -107,7 +109,7 @@ import sys
 sys.setrecursionlimit(10000) #例如这里设置深度为一万  
 
 
-14、p187 
+16、p187 
 完整代码块中的get_score 函数中存在代码缩进错误，原来代码如下：
     def get_score(self):
         return self.__score
@@ -130,7 +132,7 @@ sys.setrecursionlimit(10000) #例如这里设置深度为一万
 		
 
 			
-15、p197
+17、p197
 stu = Student0('xiaomeng', 95)
 这个语句后面漏了一句，不加上后面的执行结果打印不出来
 
@@ -141,19 +143,19 @@ stu.info()
 即加上   stu.info()  这个语句
 
 
-16、
+18、
 p207
 因为这两者本来就有根本区别   修改为：因为这两者本来就没有根本区别
 
 
-17、p216  
+19、p216  
 若把a=1/0注释掉或放到b=name下面
 需要更改为
 若把a=x/y注释掉或放到b=name下面
 即把   a=1/0   更改为    a=x/y
 		
 			
-18、p234
+20、p234
 第4 和 5 点，需要修改
 4. fromtimestamp(timestamp[, tz]) 下面的代码块：
 import datetime
@@ -176,13 +178,13 @@ import datetime, time
 print('utcfromtimestamp is:', datetime.datetime.utcfromtimestamp(time.time()))
 
 
-19、p235
+21、p235
  7.strftime(format)下
  将格式字符串转换为datetime对象。  更正为：  将datetime对象转换为格式字符串。
  返回一个datetime对象。   更正为：   返回一个字符串对象。
  
 
-20、
+22、
 p238
 缺少三个import语句，需添加如下：
 import time
@@ -190,19 +192,19 @@ import datetime
 import calendar
 
 
-21、
+23、
 p249
 11.3节 示例代码 缺少import语句，需要添加如下：
 import re
 
 
-22、
+24、
 p250
 11.4节  示例代码 缺少import语句，需添加如下：
 import re
 
 
-23、p258
+25、p258
 第二部分的代码片段有一个错误
 f_name = open(path, 'w')
 print('write length:', f_name.write('Hello world!'))
@@ -215,21 +217,21 @@ f_name = open(path,'r')
 print('read result:', f_name.read())
 
 
-24、
+26、
 p263
 12.3.2 按行操作 一节下的代码，需更改如下：
 if not c_str:   更改为：if not line:
 
 			
 			
-25、
+27、
 p306
 正文第一行
 本章主要讲述了正则表达式的相关知识   需要更改如下：
 本章主要讲述了邮件的相关知识
 
 
-26、
+28、
 p331
 数据库操作  目录下将
 在系统上已经安装了Python PyMySQ模块。
