@@ -125,10 +125,10 @@ sys.setrecursionlimit(10000) #例如这里设置深度为一万
         return self.__score
 		
 	def set_score(self, score):
-		if 0<=score<=100:
-            self.__score = score
-        else:
-            print('请输入0到100的数字。')
+	    if 0<=score<=100:
+                self.__score = score
+            else:
+                print('请输入0到100的数字。')
 		
 
 			
